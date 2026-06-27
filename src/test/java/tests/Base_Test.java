@@ -1,20 +1,23 @@
 package tests;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
 import utils.ConfigReader;
 import utils.DriverFactory;
+import utils.ScreenshotUtil;
 
 public abstract class Base_Test {
-    protected WebDriver driver;
+    protected static WebDriver driver;
     protected int timeoutSeconds;
+    protected boolean testFailed = false;
+
 
     @BeforeEach //This will be Executed before any Test runs in the Class
     void setUp(){
         timeoutSeconds = ConfigReader.getInt("timeout.seconds");
         driver = DriverFactory.createDriver();
-        //driver.manage().window().maximize();
         driver.get(ConfigReader.get("base.url"));
         System.out.println("SETUP CALLED");
     }
@@ -22,9 +25,10 @@ public abstract class Base_Test {
     @AfterEach //This will be Executed after any Test runs in the Class
     void tearDown(){
         if (driver != null) {
+            ScreenshotUtil.attachScreenshot(driver);
             driver.quit();
-            System.out.println("Tear Down");
         }
+        System.out.println("Tear Down");
     }
 
     protected LoginPage loginPage(){

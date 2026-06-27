@@ -6,7 +6,6 @@ pipeline {
     }
     
     stages {
-
         stage('Build') {
             steps {
                 bat 'mvn clean compile'
@@ -22,7 +21,12 @@ pipeline {
 
     post {
         always {
-            junit '**/surefire-reports/*.xml'
+             allure([
+                includeProperties: false,
+                jdk: '',
+                results: [[path: 'target/allure-results']]
+             ])
+             junit '**/surefire-reports/*.xml'
         }
     }
 }
