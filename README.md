@@ -4,7 +4,7 @@
 
 This project is a UI automation testing framework built with Java, Selenium WebDriver, JUnit 5, and Maven.
 
-The framework follows the **Page Object Model (POM)** design pattern to improve readability, maintainability, and reusability of test code.
+The framework follows the Page Object Model (POM) design pattern to improve readability, maintainability, and reusability of test code.
 
 The test application is the Sauce Demo website:
 https://www.saucedemo.com/
