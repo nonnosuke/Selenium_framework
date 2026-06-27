@@ -4,11 +4,16 @@ pipeline {
     tools {
         maven 'Maven'
     }
+
+    options {
+        timestamps()
+        disableConcurrentBuilds()
+    }
     
     stages {
-        stage('Build') {
+        stage('Clean') {
             steps {
-                bat 'mvn clean compile'
+                bat 'mvn clean'
             }
         }
 
@@ -27,6 +32,15 @@ pipeline {
                 results: [[path: 'target/allure-results']]
              ])
              junit '**/surefire-reports/*.xml'
+             archiveArtifacts artifacts: 'target/surefire-reports/**', allowEmptyArchive: true
+        }
+
+        failure {
+                    echo "❌ Tests failed"
+        }
+
+        success {
+                    echo "✅ Tests passed"
         }
     }
 }

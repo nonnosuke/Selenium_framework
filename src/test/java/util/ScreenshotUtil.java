@@ -6,46 +6,29 @@ import org.openqa.selenium.WebDriver;
 import io.qameta.allure.Allure;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 
 public class ScreenshotUtil{
-    public static void attachScreenshot(WebDriver driver){
-        byte[] screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-
-        Allure.addAttachment("Screenshot", new ByteArrayInputStream(screenshot));
+    public static byte[] capture(WebDriver driver) {
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
+
+    /*Save to screenshots folder
+    public static void saveToFile(WebDriver driver, Path path) {
+        File src = ((TakesScreenshot) driver)
+                .getScreenshotAs(OutputType.FILE);
+
+        try {
+            Files.copy(src.toPath(), path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }*/
 }
 
 
-/*Save to screenshots folder
 
-    private static final String SCREENSHOT_FOLDER = "screenshots";
-
-    public static final String takeScreenshot(WebDriver driver, String testName){
-        if(driver == null){
-            return null;
-        }
-
-        try {
-            Path folder = Paths.get(SCREENSHOT_FOLDER);
-            Files.createDirectories(folder);
-
-            String timestamp = LocalDateTime.now()
-                    .format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-
-            String fileName = testName + "_" + timestamp + ".png";
-
-            Path destination = folder.resolve(fileName);
-
-            File screenshot = ((TakesScreenshot) driver)
-                    .getScreenshotAs(OutputType.FILE);
-
-            Files.copy(screenshot.toPath(), destination);
-            System.out.println("Screenshot saved: " + destination.toAbsolutePath());
-            return destination.toString();
-        } catch (IOException e){
-            System.out.println("Failed to save screenshot");
-            e.printStackTrace();
-            return null;
-        }
-}*/

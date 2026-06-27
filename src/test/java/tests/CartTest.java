@@ -2,15 +2,18 @@ package tests;
 
 import models.CartItem;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import pages.CartPage;
 import pages.CheckoutPage;
 import pages.InventoryPage;
+import util.ScreenshotWatcher;
 import utils.ConfigReader;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(ScreenshotWatcher.class)
 public class CartTest extends Base_Test{
     @Test
     void addItemtoCart(){

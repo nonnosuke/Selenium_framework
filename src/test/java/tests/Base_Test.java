@@ -12,6 +12,10 @@ public abstract class Base_Test {
     protected int timeoutSeconds;
     protected boolean testFailed = false;
 
+    public static WebDriver getDriver() {
+        return driver;
+    }
+
 
     @BeforeEach //This will be Executed before any Test runs in the Class
     void setUp(){
@@ -24,9 +28,10 @@ public abstract class Base_Test {
     @AfterEach //This will be Executed after any Test runs in the Class
     void tearDown(){
         if (driver != null) {
-            ScreenshotUtil.attachScreenshot(driver);
+            //ScreenshotUtil.attachScreenshot(driver);
             driver.quit();
         }
+        driver = null;
         System.out.println("Tear Down");
     }
 

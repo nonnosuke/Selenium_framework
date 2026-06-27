@@ -2,12 +2,15 @@ package tests;
 
 import base.BasePage;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import pages.*;
+import util.ScreenshotWatcher;
 import utils.ConfigReader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(ScreenshotWatcher.class)
 public class CompleteOrderTest extends Base_Test {
 
     @Test

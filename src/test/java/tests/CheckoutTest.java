@@ -1,12 +1,15 @@
 package tests;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import pages.*;
+import util.ScreenshotWatcher;
 import utils.ConfigReader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(ScreenshotWatcher.class)
 public class CheckoutTest extends Base_Test{
     @Test
     void inputUserInfo(){
