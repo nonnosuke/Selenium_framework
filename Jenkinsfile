@@ -1,19 +1,11 @@
 pipeline {
     agent any
 
-    environment {
-        APP_REPO = 'git@github.com:nonnosuke/Selenium_framework.git'
-        JENKINS_SSH_KEY = 'jenkins-ssh-key'
+    tools {
+        maven 'Maven'
     }
-
+    
     stages {
-        stage('Checkout Application') {
-            steps {
-                git url: "${APP_REPO}",
-                    branch: 'main',
-                    credentialsId: "${JENKINS_SSH_KEY}"
-            }
-        }
 
         stage('Build') {
             steps {
