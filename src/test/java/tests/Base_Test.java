@@ -1,12 +1,11 @@
 package tests;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
 import utils.ConfigReader;
 import utils.DriverFactory;
-import utils.ScreenshotUtil;
+import util.ScreenshotUtil;
 
 public abstract class Base_Test {
     protected static WebDriver driver;
