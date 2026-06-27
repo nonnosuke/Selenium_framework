@@ -14,7 +14,7 @@ public abstract class Base_Test {
     void setUp(){
         timeoutSeconds = ConfigReader.getInt("timeout.seconds");
         driver = DriverFactory.createDriver();
-        driver.manage().window().maximize();
+        //driver.manage().window().maximize();
         driver.get(ConfigReader.get("base.url"));
         System.out.println("SETUP CALLED");
     }
