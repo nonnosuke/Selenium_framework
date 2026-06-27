@@ -16,6 +16,7 @@ public class ConfigReader {
                 throw new RuntimeException("config.properties not found");
             }
             properties.load(inputStream);
+            System.out.println(inputStream);
         } catch (Exception e){
             throw new RuntimeException("Fail to load config.properties", e);
         }
