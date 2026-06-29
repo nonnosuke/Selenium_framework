@@ -15,7 +15,7 @@ public class InventoryPage extends BasePage {
     private final By cartLink = By.className("shopping_cart_link");
 
     public boolean loadedPage(){
-        return "Products".equals(textOf(pageTitle));
+        return "Products".equals(getText(pageTitle));
     }
 
     public void addProductToCart(String productName){
@@ -26,7 +26,7 @@ public class InventoryPage extends BasePage {
     }
 
     public int getCartCount(){
-        return Integer.parseInt(textOf(cartBadge));
+        return Integer.parseInt(getText(cartBadge));
     }
 
     public CartPage openCart(){

@@ -21,7 +21,7 @@ public class CheckoutOverviewPage extends BasePage {
     private final By cancelBtn = By.id("cancel");
 
     public boolean loadedPage(){
-        return "Checkout: Overview".equals(textOf(pageTitle));
+        return "Checkout: Overview".equals(getText(pageTitle));
     }
 
     public List<CartItem> getCartItem(){

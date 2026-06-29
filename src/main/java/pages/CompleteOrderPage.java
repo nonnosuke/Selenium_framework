@@ -15,11 +15,11 @@ public class CompleteOrderPage extends BasePage {
     private final By backHomeBtn = By.id("back-to-products");
 
     public boolean loadedPage(){
-        return "Checkout: Complete!".equals(textOf(pageTitle));
+        return "Checkout: Complete!".equals(getText(pageTitle));
     }
 
     public String getText(){
-        return textOf(completeText);
+        return getText(completeText);
     }
 
     public InventoryPage backHome(){

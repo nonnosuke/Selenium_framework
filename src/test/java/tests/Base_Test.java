@@ -8,34 +8,25 @@ import utils.DriverFactory;
 import util.ScreenshotUtil;
 
 public abstract class Base_Test {
-    protected static WebDriver driver;
+    //protected static WebDriver driver;
     protected int timeoutSeconds;
     protected boolean testFailed = false;
-
-    public static WebDriver getDriver() {
-        return driver;
-    }
 
 
     @BeforeEach //This will be Executed before any Test runs in the Class
     void setUp(){
         timeoutSeconds = ConfigReader.getInt("timeout.seconds");
-        driver = DriverFactory.createDriver();
-        driver.get(ConfigReader.get("base.url"));
+        DriverFactory.createDriver();
+        DriverFactory.getDriver().get(ConfigReader.get("base.url"));
         System.out.println("SETUP CALLED");
     }
 
     @AfterEach //This will be Executed after any Test runs in the Class
     void tearDown(){
-        if (driver != null) {
-            //ScreenshotUtil.attachScreenshot(driver);
-            driver.quit();
-        }
-        driver = null;
-        System.out.println("Tear Down");
+        DriverFactory.quitDriver();
     }
 
     protected LoginPage loginPage(){
-        return new LoginPage(driver, timeoutSeconds);
+        return new LoginPage(DriverFactory.getDriver(), timeoutSeconds);
     }
 }

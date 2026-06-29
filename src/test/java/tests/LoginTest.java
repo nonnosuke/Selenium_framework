@@ -1,5 +1,6 @@
 package tests;
 
+import models.LoginData;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.InventoryPage;
 import org.junit.jupiter.api.Test;

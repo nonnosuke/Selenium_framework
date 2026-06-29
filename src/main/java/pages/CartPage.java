@@ -21,17 +21,17 @@ public class CartPage extends BasePage {
     }
 
     public boolean loadedPage(){
-        return textOf(pageTitle).equals("Your Cart");
+        return getText(pageTitle).equals("Your Cart");
     }
 
     public boolean hasProduct(String productName){
         By product = By.xpath("//div[text()='" + productName + "']");
         //return visible(product).isDisplayed();
-        return !driver.findElements(product).isEmpty();
+        return !finds(product).isEmpty();
     }
 
     public List<CartItem> getCartItems(){
-        List<WebElement> elements = driver.findElements(cartItem);
+        List<WebElement> elements = finds(cartItem);
         List<CartItem> items = new ArrayList<>();
 
         for (WebElement element : elements) {
@@ -71,6 +71,6 @@ public class CartPage extends BasePage {
 
     public int getCartcount(){
         By cartBadge = By.className("shopping_cart_badge");
-        return Integer.parseInt(textOf(cartBadge));
+        return Integer.parseInt(getText(cartBadge));
     }
 }

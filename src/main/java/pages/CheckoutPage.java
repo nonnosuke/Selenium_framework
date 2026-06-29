@@ -18,8 +18,8 @@ public class CheckoutPage extends BasePage {
     }
 
     public boolean loadedPage(){
-        System.out.println(textOf(pageTitle));
-        return "Checkout: Your Information".equals(textOf(pageTitle));
+        System.out.println(getText(pageTitle));
+        return "Checkout: Your Information".equals(getText(pageTitle));
     }
 
     public void enterFirstName(String firstName){
@@ -58,7 +58,7 @@ public class CheckoutPage extends BasePage {
     }
 
     public String getErrorMessage(){
-        return textOf(errorMessage);
+        return getText(errorMessage);
     }
 
 

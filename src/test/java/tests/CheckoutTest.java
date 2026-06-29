@@ -64,7 +64,6 @@ public class CheckoutTest extends Base_Test{
         CartPage returnedCartPage = checkoutpage.cancel();
 
         //Assert
-        System.out.println(driver.getCurrentUrl());
         assertTrue(returnedCartPage.loadedPage());
     }
 

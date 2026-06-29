@@ -4,14 +4,14 @@ import io.qameta.allure.Allure;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.TestWatcher;
 import org.openqa.selenium.WebDriver;
-import tests.Base_Test;
+import utils.DriverFactory;
 
 import java.io.ByteArrayInputStream;
 
 public class ScreenshotWatcher implements TestWatcher {
     @Override
     public void testFailed(ExtensionContext context, Throwable cause) {
-        WebDriver driver = Base_Test.getDriver();
+        WebDriver driver = DriverFactory.getDriver();
 
         if(driver == null) return;
 
