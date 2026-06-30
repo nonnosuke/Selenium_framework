@@ -1,11 +1,9 @@
 package tests;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
 import utils.ConfigReader;
 import utils.DriverFactory;
-import util.ScreenshotUtil;
 
 public abstract class Base_Test {
     //protected static WebDriver driver;
@@ -24,6 +22,7 @@ public abstract class Base_Test {
     @AfterEach //This will be Executed after any Test runs in the Class
     void tearDown(){
         DriverFactory.quitDriver();
+        System.out.println("TEAR DOWN");
     }
 
     protected LoginPage loginPage(){

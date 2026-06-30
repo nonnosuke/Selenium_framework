@@ -15,17 +15,14 @@ public class LoginPage extends BasePage {
     private final By loginButton = By.id("login-button");
     private final By errorMessage = By.cssSelector("[data-test='error']");
 
-    public InventoryPage login(String username, String password){
+    public void login(String username, String password){
         type(usernameField, username);
         type(passwordField, password);
         click(loginButton);
-        return new InventoryPage(driver, timeoutSeconds);
     }
 
-    public void invalidLogin(String username, String password){
-        type(usernameField, username);
-        type(passwordField, password);
-        click(loginButton);
+    public boolean loadedPage(){
+        return isDisplayed(loginButton);
     }
 
     public String getErrorMessage(){

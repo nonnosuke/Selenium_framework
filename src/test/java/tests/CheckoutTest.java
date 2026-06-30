@@ -3,7 +3,8 @@ package tests;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.*;
-import util.ScreenshotWatcher;
+import utils.DriverFactory;
+import utils.ScreenshotWatcher;
 import utils.ConfigReader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,10 +15,12 @@ public class CheckoutTest extends Base_Test{
     @Test
     void inputUserInfo(){
         //Arrange (login)
-        InventoryPage inventoryPage = loginPage().login(
+        loginPage().login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
+
+        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
 
         //Act
         inventoryPage.addProductToCart("Sauce Labs Backpack");
@@ -33,10 +36,12 @@ public class CheckoutTest extends Base_Test{
     @Test
     void finishOrder(){
         //Arrange (login)
-        InventoryPage inventoryPage = loginPage().login(
+        loginPage().login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
+
+        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
 
         //Act
         inventoryPage.addProductToCart("Sauce Labs Backpack");
@@ -52,10 +57,12 @@ public class CheckoutTest extends Base_Test{
     @Test
     void cancelCheckout(){
         //Arrange (login)
-        InventoryPage inventoryPage = loginPage().login(
+        loginPage().login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
+
+        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
 
         //Act
         inventoryPage.addProductToCart("Sauce Labs Backpack");
@@ -70,10 +77,12 @@ public class CheckoutTest extends Base_Test{
     @Test
     void requireField(){
         //Arrange (login)
-        InventoryPage inventoryPage = loginPage().login(
+        loginPage().login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
+
+        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
 
         //Act
         inventoryPage.addProductToCart("Sauce Labs Backpack");

@@ -1,10 +1,8 @@
-package util;
+package utils;
 
 import models.LoginData;
 import org.junit.jupiter.api.Test;
-import utils.CsvReader;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

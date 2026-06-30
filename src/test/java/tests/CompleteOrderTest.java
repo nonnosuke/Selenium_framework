@@ -1,10 +1,10 @@
 package tests;
 
-import base.BasePage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.*;
-import util.ScreenshotWatcher;
+import utils.DriverFactory;
+import utils.ScreenshotWatcher;
 import utils.ConfigReader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,10 +16,12 @@ public class CompleteOrderTest extends Base_Test {
     @Test
     void completeOrder(){
         //Arrange (login)
-        InventoryPage inventoryPage = loginPage().login(
+        loginPage().login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
+
+        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
 
         //Act
         inventoryPage.addProductToCart("Sauce Labs Backpack");
@@ -35,10 +37,12 @@ public class CompleteOrderTest extends Base_Test {
     @Test
     void backToHome(){
         //Arrange (login)
-        InventoryPage inventoryPage = loginPage().login(
+        loginPage().login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
+
+        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
 
         //Act
         inventoryPage.addProductToCart("Sauce Labs Backpack");
