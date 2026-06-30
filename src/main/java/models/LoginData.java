@@ -5,6 +5,10 @@ public record LoginData (
     String password,
     String expected
 ) {
+    @Override
+    public String toString() {
+        return username + " (" + expected + ")";
+    }
 }
 
 

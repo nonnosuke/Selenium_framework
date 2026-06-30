@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
 import models.LoginData;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,10 +20,8 @@ public class LoginTest extends Base_Test {
     @ParameterizedTest
     @MethodSource("utils.CsvDataProvider#loginUsers")
     void loginTest(LoginData user) {
-        loginPage().login(
-                user.username(),
-                user.password()
-        );
+
+        login(user);
 
         if (user.expected().equals("SUCCESS")) {
             assertTrue(
@@ -33,5 +33,14 @@ public class LoginTest extends Base_Test {
             assertEquals("Epic sadface: Sorry, this user has been locked out.",
                     loginPage().getErrorMessage());
         }
+    }
+
+    private void login(LoginData user) {
+        Allure.step("Login as " + user.username());
+        loginPage().login(
+                user.username(),
+                user.password()
+        );
+
     }
 }
