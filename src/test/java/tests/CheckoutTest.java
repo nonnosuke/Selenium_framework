@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.*;
@@ -10,8 +12,13 @@ import utils.ConfigReader;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Epic("Swag Labs")
+@Feature("Checkout")
 @ExtendWith(ScreenshotWatcher.class)
 public class CheckoutTest extends Base_Test{
+    @Story("Input User Information")
+    @DisplayName("Input User information to the form")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     void inputUserInfo(){
         //Arrange (login)
@@ -33,6 +40,9 @@ public class CheckoutTest extends Base_Test{
         System.out.println(overviewpage.getCartItem());
     }
 
+    @Story("Finish checkout")
+    @DisplayName("Complete form and finish order")
+    @Severity(SeverityLevel.BLOCKER)
     @Test
     void finishOrder(){
         //Arrange (login)
@@ -54,6 +64,9 @@ public class CheckoutTest extends Base_Test{
         assertTrue(completeorderpage.loadedPage());
     }
 
+    @Story("Cancel checkout")
+    @DisplayName("After moving to checkout page, cancel checkout")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     void cancelCheckout(){
         //Arrange (login)
@@ -74,6 +87,9 @@ public class CheckoutTest extends Base_Test{
         assertTrue(returnedCartPage.loadedPage());
     }
 
+    @Story("User information required message")
+    @DisplayName("Display error message")
+    @Severity(SeverityLevel.NORMAL)
     @Test
     void requireField(){
         //Arrange (login)

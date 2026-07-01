@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.*;
@@ -10,9 +12,14 @@ import utils.ConfigReader;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Epic("Swag Labs")
+@Feature("Complete order")
 @ExtendWith(ScreenshotWatcher.class)
 public class CompleteOrderTest extends Base_Test {
 
+    @Story("Complete order")
+    @DisplayName("Complete order and display complete message")
+    @Severity(SeverityLevel.BLOCKER)
     @Test
     void completeOrder(){
         //Arrange (login)
@@ -34,6 +41,9 @@ public class CompleteOrderTest extends Base_Test {
         assertEquals("Thank you for your order!", completeorderpage.getText());
     }
 
+    @Story("Back to home button")
+    @DisplayName("After complete order, back to home")
+    @Severity(SeverityLevel.NORMAL)
     @Test
     void backToHome(){
         //Arrange (login)

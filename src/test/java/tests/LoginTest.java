@@ -1,22 +1,25 @@
 package tests;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.Step;
+import io.qameta.allure.*;
 import models.LoginData;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import pages.InventoryPage;
-import org.junit.jupiter.api.Test;
 import utils.DriverFactory;
 import utils.ScreenshotWatcher;
-import utils.ConfigReader;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
+@Epic("Swag Labs")
+@Feature("Login")
 @ExtendWith(ScreenshotWatcher.class)
 public class LoginTest extends Base_Test {
+    @DisplayName("Login test with valid and invalid users")
+    @Story("Authentication")
+    @Severity(SeverityLevel.CRITICAL)
     @ParameterizedTest
     @MethodSource("utils.CsvDataProvider#loginUsers")
     void loginTest(LoginData user) {

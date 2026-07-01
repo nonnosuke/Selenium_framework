@@ -2,6 +2,7 @@ package tests;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import pages.LoginPage;
+import utils.AllureEnvironmentWriter;
 import utils.ConfigReader;
 import utils.DriverFactory;
 
@@ -16,6 +17,9 @@ public abstract class Base_Test {
         timeoutSeconds = ConfigReader.getInt("timeout.seconds");
         DriverFactory.createDriver();
         DriverFactory.getDriver().get(ConfigReader.get("base.url"));
+
+        AllureEnvironmentWriter.write();
+
         System.out.println("SETUP CALLED");
     }
 

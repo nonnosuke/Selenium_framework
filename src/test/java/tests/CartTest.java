@@ -1,6 +1,8 @@
 package tests;
 
+import io.qameta.allure.*;
 import models.CartItem;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.CartPage;
@@ -14,8 +16,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Epic("Swag Labs")
+@Feature("Cart")
 @ExtendWith(ScreenshotWatcher.class)
 public class CartTest extends Base_Test{
+    @Story("Add product to cart")
+    @DisplayName("Add item to cart")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     void addItemtoCart(){
         //Arrange (login)
@@ -35,6 +42,9 @@ public class CartTest extends Base_Test{
         assertTrue(cartpage.hasProduct("Sauce Labs Backpack"));
     }
 
+    @Story("Remove item from cart")
+    @DisplayName("Remove button")
+    @Severity(SeverityLevel.NORMAL)
     @Test
     void removeItemfromCart(){
         //Arrange
@@ -61,6 +71,9 @@ public class CartTest extends Base_Test{
         assertEquals(1, cartpage.getCartcount());
     }
 
+    @Story("Checkout items")
+    @DisplayName("Checkout button")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     void checkout(){
         //Arrange
@@ -81,6 +94,9 @@ public class CartTest extends Base_Test{
         assertTrue(checkoutpage.loadedPage());
     }
 
+    @Story("Continue shopping")
+    @DisplayName("Continue shopping button after open cart")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     void continueShopping(){
         //Arrange
