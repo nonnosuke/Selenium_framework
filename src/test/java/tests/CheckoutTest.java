@@ -46,7 +46,7 @@ public class CheckoutTest extends Base_Test{
     @Test
     void finishOrder(){
         //Arrange (login)
-        loginPage().login(
+        login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
@@ -70,7 +70,7 @@ public class CheckoutTest extends Base_Test{
     @Test
     void cancelCheckout(){
         //Arrange (login)
-        loginPage().login(
+        login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
@@ -93,7 +93,7 @@ public class CheckoutTest extends Base_Test{
     @Test
     void requireField(){
         //Arrange (login)
-        loginPage().login(
+        login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );

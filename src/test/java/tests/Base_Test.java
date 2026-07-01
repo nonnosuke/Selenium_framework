@@ -1,11 +1,16 @@
 package tests;
+import io.qameta.allure.Allure;
+import models.LoginData;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import pages.LoginPage;
 import utils.AllureEnvironmentWriter;
 import utils.ConfigReader;
 import utils.DriverFactory;
+import utils.ScreenshotWatcher;
 
+@ExtendWith(ScreenshotWatcher.class)
 public abstract class Base_Test {
     //protected static WebDriver driver;
     protected int timeoutSeconds;
@@ -31,5 +36,19 @@ public abstract class Base_Test {
 
     protected LoginPage loginPage(){
         return new LoginPage(DriverFactory.getDriver(), timeoutSeconds);
+    }
+
+    //From ConfigReader
+    protected void login(String username, String password){
+        loginPage().login(username, password);
+    }
+
+    //From CSV
+    protected void loginAs(LoginData user) {
+        Allure.step("Login as " + user.username());
+        loginPage().login(
+                user.username(),
+                user.password()
+        );
     }
 }

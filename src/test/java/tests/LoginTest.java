@@ -12,7 +12,6 @@ import utils.ScreenshotWatcher;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @Epic("Swag Labs")
 @Feature("Login")
 @ExtendWith(ScreenshotWatcher.class)
@@ -24,7 +23,7 @@ public class LoginTest extends Base_Test {
     @MethodSource("utils.CsvDataProvider#loginUsers")
     void loginTest(LoginData user) {
 
-        login(user);
+        loginAs(user);
 
         if (user.expected().equals("SUCCESS")) {
             assertTrue(
@@ -36,14 +35,5 @@ public class LoginTest extends Base_Test {
             assertEquals("Epic sadface: Sorry, this user has been locked out.",
                     loginPage().getErrorMessage());
         }
-    }
-
-    private void login(LoginData user) {
-        Allure.step("Login as " + user.username());
-        loginPage().login(
-                user.username(),
-                user.password()
-        );
-
     }
 }

@@ -25,7 +25,7 @@ public class CartItem {
 
     @Override
     public String toString(){
-        return "CartItem{ " + "name='" + name + '\'' + ", price='" + price + '\''
+        return "CartItem{ " + "productName='" + name + '\'' + ", price='" + price + '\''
                 + ", quantity=" + quantity + " }";
     }
 }

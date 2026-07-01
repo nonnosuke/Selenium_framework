@@ -1,6 +1,7 @@
 package utils;
 
 import models.LoginData;
+import models.ProductData;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,5 +54,19 @@ public final class CsvReader {
             loginData.add(new LoginData(row[0], row[1], row[2]));
         }
         return loginData;
+    }
+
+    public static List<ProductData> readProductData(String resourcePath){
+        List<String[]> csvRows = read(resourcePath);
+        List<ProductData> productData = new ArrayList<>();
+        for(String[] row : csvRows){
+
+            if (row.length != 1){
+                throw new IllegalArgumentException("Invalid CSV row: " + Arrays.toString(row));
+            }
+
+            productData.add(new ProductData(row[0]));
+        }
+        return productData;
     }
 }

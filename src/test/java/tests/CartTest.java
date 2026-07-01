@@ -2,9 +2,12 @@ package tests;
 
 import io.qameta.allure.*;
 import models.CartItem;
+import models.ProductData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import pages.CartPage;
 import pages.CheckoutPage;
 import pages.InventoryPage;
@@ -23,10 +26,11 @@ public class CartTest extends Base_Test{
     @Story("Add product to cart")
     @DisplayName("Add item to cart")
     @Severity(SeverityLevel.CRITICAL)
-    @Test
-    void addItemtoCart(){
+    @ParameterizedTest
+    @MethodSource("utils.CsvDataProvider#products")
+    void addItemtoCart(ProductData product){
         //Arrange (login)
-        loginPage().login(
+        login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
@@ -34,12 +38,13 @@ public class CartTest extends Base_Test{
         InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
 
         //Act
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
+        inventoryPage.addProductToCart(product.productName());
         CartPage cartpage = inventoryPage.openCart();
+        //inventoryPage.addProductToCart("Sauce Labs Backpack");
 
         //Assert
         assertEquals(1, inventoryPage.getCartCount());
-        assertTrue(cartpage.hasProduct("Sauce Labs Backpack"));
+        assertTrue(cartpage.hasProduct(product.productName()));
     }
 
     @Story("Remove item from cart")
@@ -48,7 +53,7 @@ public class CartTest extends Base_Test{
     @Test
     void removeItemfromCart(){
         //Arrange
-        loginPage().login(
+        login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
@@ -77,7 +82,7 @@ public class CartTest extends Base_Test{
     @Test
     void checkout(){
         //Arrange
-        loginPage().login(
+        login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
@@ -100,7 +105,7 @@ public class CartTest extends Base_Test{
     @Test
     void continueShopping(){
         //Arrange
-        loginPage().login(
+        login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );

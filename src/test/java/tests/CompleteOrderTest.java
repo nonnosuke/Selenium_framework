@@ -23,7 +23,7 @@ public class CompleteOrderTest extends Base_Test {
     @Test
     void completeOrder(){
         //Arrange (login)
-        loginPage().login(
+        login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
@@ -47,7 +47,7 @@ public class CompleteOrderTest extends Base_Test {
     @Test
     void backToHome(){
         //Arrange (login)
-        loginPage().login(
+        login(
                 ConfigReader.get("valid.username"),
                 ConfigReader.get("valid.password")
         );
