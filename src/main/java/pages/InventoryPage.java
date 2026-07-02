@@ -33,4 +33,9 @@ public class InventoryPage extends BasePage {
         click(cartLink);
         return new CartPage(driver, timeoutSeconds);
     }
+
+    public ProductDetailPage openProduct(String productName){
+        click(By.xpath(("//div[text()='" + productName + "']")));
+        return new ProductDetailPage(driver, timeoutSeconds);
+    }
 }
