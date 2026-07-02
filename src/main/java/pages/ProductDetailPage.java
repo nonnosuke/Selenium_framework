@@ -3,11 +3,15 @@ package pages;
 import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pages.components.HeaderComponent;
 
 public class ProductDetailPage extends BasePage {
 
+    private final HeaderComponent header;
+
     public ProductDetailPage(WebDriver driver, int timeoutSeconds) {
         super(driver, timeoutSeconds);
+        this.header = new HeaderComponent(driver, timeoutSeconds);
     }
 
     private final By productName = By.className("inventory_details_name");
@@ -37,9 +41,12 @@ public class ProductDetailPage extends BasePage {
     }
 
     public int getCartCount(){
-        return Integer.parseInt(getText(cartBadge));
+        return header.getCartCount();
     }
 
+    public boolean hasCartBadge(){
+        return header.hasCartBadge();
+    }
 
     public InventoryPage backToProducts(){
         click(backBtn);

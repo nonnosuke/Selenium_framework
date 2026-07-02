@@ -115,4 +115,27 @@ public class CheckoutTest extends Base_Test{
         //assertEquals("Error: Last Name is required", checkoutpage.getErrorMessage());
         assertEquals("Error: Postal Code is required", checkoutpage.getErrorMessage());
     }
+
+    @Story("Cancel checkout from overview page")
+    @DisplayName("Cancel checkout from overview")
+    @Severity(SeverityLevel.NORMAL)
+    @Test
+    void cancelCheckoutOverview(){
+        //Arrange (login)
+        login(
+                ConfigReader.get("valid.username"),
+                ConfigReader.get("valid.password")
+        );
+
+        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
+
+        //Act
+        inventoryPage.addProductToCart("Sauce Labs Backpack");
+        CartPage cartpage = inventoryPage.openCart();
+        CheckoutPage checkoutpage = cartpage.checkout();
+        CheckoutOverviewPage overviewpage = checkoutpage.enterInfo("Shohei", "Otani", "V6B 1V5");
+
+        InventoryPage inventory = overviewpage.cancel();
+        assertTrue(inventory.loadedPage());
+    }
 }

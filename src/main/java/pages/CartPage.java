@@ -5,11 +5,15 @@ import models.CartItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pages.components.HeaderComponent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartPage extends BasePage {
+
+    private final HeaderComponent header;
+
     private final By pageTitle = By.className("title");
     private final By checkoutBtn = By.id("checkout");
     private final By continueShoppingBtn = By.id("continue-shopping");
@@ -18,6 +22,7 @@ public class CartPage extends BasePage {
 
     public CartPage (WebDriver driver, int timeoutSeconds){
         super(driver, timeoutSeconds);
+        this.header = new HeaderComponent(driver, timeoutSeconds);
     }
 
     public boolean loadedPage(){
@@ -70,7 +75,6 @@ public class CartPage extends BasePage {
     }
 
     public int getCartcount(){
-        By cartBadge = By.className("shopping_cart_badge");
-        return Integer.parseInt(getText(cartBadge));
+        return header.getCartCount();
     }
 }

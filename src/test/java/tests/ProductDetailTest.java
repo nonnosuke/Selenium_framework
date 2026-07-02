@@ -13,8 +13,7 @@ import utils.ConfigReader;
 import utils.DriverFactory;
 import utils.ScreenshotWatcher;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Swag Labs")
 @Feature("Product detail page")
@@ -94,5 +93,6 @@ public class ProductDetailTest extends Base_Test{
         detailPage.removeFromCart();
 
         assertTrue(detailPage.addBtnDisplayed());
+        assertFalse(detailPage.hasCartBadge());
     }
 }
