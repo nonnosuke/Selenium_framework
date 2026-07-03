@@ -4,19 +4,26 @@ import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.bidi.network.Header;
+import pages.components.FooterComponent;
 import pages.components.HeaderComponent;
 
 public class InventoryPage extends BasePage {
 
-    public final HeaderComponent header;
+    private final HeaderComponent header;
+    private final FooterComponent footer;
 
     public InventoryPage(WebDriver driver, int timeoutSeconds) {
         super(driver, timeoutSeconds);
+        this.footer = new FooterComponent(driver, timeoutSeconds);
         this.header = new HeaderComponent(driver, timeoutSeconds);
     }
 
     public HeaderComponent header(){
         return header;
+    }
+
+    public FooterComponent footer(){
+        return footer;
     }
 
     private final By pageTitle = By.className("title");

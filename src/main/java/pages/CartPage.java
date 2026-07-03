@@ -5,6 +5,7 @@ import models.CartItem;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import pages.components.FooterComponent;
 import pages.components.HeaderComponent;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 public class CartPage extends BasePage {
 
     private final HeaderComponent header;
+    private final FooterComponent footer;
 
     private final By pageTitle = By.className("title");
     private final By checkoutBtn = By.id("checkout");
@@ -22,11 +24,16 @@ public class CartPage extends BasePage {
 
     public CartPage (WebDriver driver, int timeoutSeconds){
         super(driver, timeoutSeconds);
+        this.footer = new FooterComponent(driver, timeoutSeconds);
         this.header = new HeaderComponent(driver, timeoutSeconds);
     }
 
     public HeaderComponent header(){
         return header;
+    }
+
+    public FooterComponent footer(){
+        return footer;
     }
 
     public boolean loadedPage(){

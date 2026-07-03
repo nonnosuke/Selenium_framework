@@ -10,11 +10,12 @@ import utils.ConfigReader;
 import utils.DriverFactory;
 import utils.ScreenshotWatcher;
 
+import java.util.Set;
+
 @ExtendWith(ScreenshotWatcher.class)
 public abstract class Base_Test {
     //protected static WebDriver driver;
     protected int timeoutSeconds;
-    protected boolean testFailed = false;
 
 
     @BeforeEach //This will be Executed before any Test runs in the Class
@@ -51,4 +52,24 @@ public abstract class Base_Test {
                 user.password()
         );
     }
+
+    protected String getCurrentWindow(){
+        return DriverFactory.getDriver().getWindowHandle();
+    }
+
+    protected void switchToNewTab(String originalWindow){
+        Set<String> windows = DriverFactory.getDriver().getWindowHandles();
+        for (String window : windows){
+            if(!window.equals(originalWindow)){
+                DriverFactory.getDriver().switchTo().window(window);
+                break;
+            }
+        }
+    }
+
+    protected void closeCurrentTabAndReturn(String originalWindow){
+        DriverFactory.getDriver().close();
+        DriverFactory.getDriver().switchTo().window(originalWindow);
+    }
 }
+
