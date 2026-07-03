@@ -3,15 +3,20 @@ package pages;
 import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.bidi.network.Header;
 import pages.components.HeaderComponent;
 
 public class InventoryPage extends BasePage {
 
-    private final HeaderComponent header;
+    public final HeaderComponent header;
 
     public InventoryPage(WebDriver driver, int timeoutSeconds) {
         super(driver, timeoutSeconds);
         this.header = new HeaderComponent(driver, timeoutSeconds);
+    }
+
+    public HeaderComponent header(){
+        return header;
     }
 
     private final By pageTitle = By.className("title");

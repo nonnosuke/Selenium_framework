@@ -14,6 +14,10 @@ public class ProductDetailPage extends BasePage {
         this.header = new HeaderComponent(driver, timeoutSeconds);
     }
 
+    public HeaderComponent header(){
+        return header;
+    }
+
     private final By productName = By.className("inventory_details_name");
     private final By backBtn = By.id("back-to-products");
     private final By addToCartBtn = By.cssSelector("button[id^='add-to-cart']"); //^= means start from '~'

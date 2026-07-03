@@ -25,6 +25,10 @@ public class CartPage extends BasePage {
         this.header = new HeaderComponent(driver, timeoutSeconds);
     }
 
+    public HeaderComponent header(){
+        return header;
+    }
+
     public boolean loadedPage(){
         return getText(pageTitle).equals("Your Cart");
     }
