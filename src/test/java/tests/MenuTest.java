@@ -7,7 +7,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import pages.InventoryPage;
 import pages.LoginPage;
 import pages.ProductDetailPage;
-import utils.ConfigReader;
 import utils.DriverFactory;
 import utils.ScreenshotWatcher;
 
@@ -22,15 +21,11 @@ public class MenuTest extends Base_Test{
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void logout(){
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get(("valid.password"))
-        );
+        InventoryPage inventoryPage = loginAsStandardUser();
 
-        InventoryPage inventory = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-        inventory.header().openMenu();
+        inventoryPage.header().openMenu();
 
-        LoginPage login = inventory.header().menu().logout();
+        LoginPage login = inventoryPage.header().menu().logout();
 
         assertTrue(login.loadedPage());
 
@@ -41,13 +36,7 @@ public class MenuTest extends Base_Test{
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void allItem(){
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get(("valid.password"))
-        );
-
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-        ProductDetailPage detailPage = inventoryPage.openProduct("Sauce Labs Backpack");
+        ProductDetailPage detailPage = loginAndOpenProductPage("Sauce Labs Backpack");
         detailPage.header().openMenu();
         InventoryPage returnedInventoryPage = detailPage.header().menu().allItems();
 
@@ -59,18 +48,14 @@ public class MenuTest extends Base_Test{
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void resetAppState(){
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
+        InventoryPage inventoryPage = loginAsStandardUser();
 
-        InventoryPage inventory = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-        inventory.addProductToCart("Sauce Labs Backpack");
-        assertTrue(inventory.header().hasCartBadge());
+        inventoryPage.addProductToCart("Sauce Labs Backpack");
+        assertTrue(inventoryPage.header().hasCartBadge());
 
-        inventory.header().openMenu();
-        inventory.header().menu().resetAppState();
-        assertFalse(inventory.header().hasCartBadge());
+        inventoryPage.header().openMenu();
+        inventoryPage.header().menu().resetAppState();
+        assertFalse(inventoryPage.header().hasCartBadge());
     }
 
     @Story("Navigate to About page")
@@ -78,14 +63,10 @@ public class MenuTest extends Base_Test{
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void about(){
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
+        InventoryPage inventoryPage = loginAsStandardUser();
 
-        InventoryPage inventory = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-        inventory.header().openMenu();
-        inventory.header().menu().about();
+        inventoryPage.header().openMenu();
+        inventoryPage.header().menu().about();
 
         assertTrue(DriverFactory.getDriver().getCurrentUrl().startsWith("https://saucelabs.com/"));
     }

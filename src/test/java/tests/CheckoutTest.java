@@ -5,9 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.*;
-import utils.DriverFactory;
 import utils.ScreenshotWatcher;
-import utils.ConfigReader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -22,18 +20,10 @@ public class CheckoutTest extends Base_Test{
     @Test
     void inputUserInfo(){
         //Arrange (login)
-        loginPage().login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
-
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
         //Act
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
-        CartPage cartpage = inventoryPage.openCart();
-        CheckoutPage checkoutpage = cartpage.checkout();
-        CheckoutOverviewPage overviewpage = checkoutpage.enterInfo("Shohei", "Otani", "V6B 1V5");
+        CheckoutPage checkoutPage = loginAndOpenCheckoutPage("Sauce Labs Backpack");
+
+        CheckoutOverviewPage overviewpage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
 
         //Assert
         assertTrue(overviewpage.loadedPage());
@@ -46,18 +36,10 @@ public class CheckoutTest extends Base_Test{
     @Test
     void finishOrder(){
         //Arrange (login)
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
-
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
         //Act
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
-        CartPage cartpage = inventoryPage.openCart();
-        CheckoutPage checkoutpage = cartpage.checkout();
-        CheckoutOverviewPage overviewpage = checkoutpage.enterInfo("Shohei", "Otani", "V6B 1V5");
+        CheckoutPage checkoutPage = loginAndOpenCheckoutPage("Sauce Labs Backpack");
+
+        CheckoutOverviewPage overviewpage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
         CompleteOrderPage completeorderpage = overviewpage.finish();
 
         //Assert
@@ -70,18 +52,9 @@ public class CheckoutTest extends Base_Test{
     @Test
     void cancelCheckout(){
         //Arrange (login)
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
-
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
         //Act
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
-        CartPage cartpage = inventoryPage.openCart();
-        CheckoutPage checkoutpage = cartpage.checkout();
-        CartPage returnedCartPage = checkoutpage.cancel();
+        CheckoutPage checkoutPage = loginAndOpenCheckoutPage("Sauce Labs Backpack");
+        CartPage returnedCartPage = checkoutPage.cancel();
 
         //Assert
         assertTrue(returnedCartPage.loadedPage());
@@ -93,17 +66,9 @@ public class CheckoutTest extends Base_Test{
     @Test
     void requireField(){
         //Arrange (login)
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
+        CartPage cartPage = loginAndOpenCartPage("Sauce Labs Backpack");
 
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
-        //Act
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
-        CartPage cartpage = inventoryPage.openCart();
-        CheckoutPage checkoutpage = cartpage.checkout();
+        CheckoutPage checkoutpage = cartPage.checkout();
         checkoutpage.enterFirstName("Shohei");
         checkoutpage.enterLastName("Otani");
         checkoutpage.enterPostalCode("");
@@ -122,18 +87,9 @@ public class CheckoutTest extends Base_Test{
     @Test
     void cancelCheckoutOverview(){
         //Arrange (login)
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
+        CheckoutPage checkoutPage = loginAndOpenCheckoutPage("Sauce Labs Backpack");
 
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
-        //Act
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
-        CartPage cartpage = inventoryPage.openCart();
-        CheckoutPage checkoutpage = cartpage.checkout();
-        CheckoutOverviewPage overviewpage = checkoutpage.enterInfo("Shohei", "Otani", "V6B 1V5");
+        CheckoutOverviewPage overviewpage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
 
         InventoryPage inventory = overviewpage.cancel();
         assertTrue(inventory.loadedPage());

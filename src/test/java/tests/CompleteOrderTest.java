@@ -5,9 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.*;
-import utils.DriverFactory;
 import utils.ScreenshotWatcher;
-import utils.ConfigReader;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,17 +21,9 @@ public class CompleteOrderTest extends Base_Test {
     @Test
     void completeOrder(){
         //Arrange (login)
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
+        CartPage cartPage = loginAndOpenCartPage("Sauce Labs Backpack");
 
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
-        //Act
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
-        CartPage cartpage = inventoryPage.openCart();
-        CheckoutPage checkoutpage = cartpage.checkout();
+        CheckoutPage checkoutpage = cartPage.checkout();
         CheckoutOverviewPage overviewpage = checkoutpage.enterInfo("Shohei", "Otani", "V6B 1V5");
         CompleteOrderPage completeorderpage = overviewpage.finish();
 
@@ -47,17 +37,9 @@ public class CompleteOrderTest extends Base_Test {
     @Test
     void backToHome(){
         //Arrange (login)
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
+        CartPage cartPage = loginAndOpenCartPage("Sauce Labs Backpack");
 
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
-        //Act
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
-        CartPage cartpage = inventoryPage.openCart();
-        CheckoutPage checkoutpage = cartpage.checkout();
+        CheckoutPage checkoutpage = cartPage.checkout();
         CheckoutOverviewPage overviewpage = checkoutpage.enterInfo("Shohei", "Otani", "V6B 1V5");
         CompleteOrderPage completeorderpage = overviewpage.finish();
         InventoryPage inventoryPageAfterBackHome = completeorderpage.backHome();

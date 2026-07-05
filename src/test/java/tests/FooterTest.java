@@ -20,12 +20,7 @@ public class FooterTest extends Base_Test {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void openX() {
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get(("valid.password"))
-        );
-
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
+        InventoryPage inventoryPage = loginAsStandardUser();
 
         String originalWindow = getCurrentWindow();
         inventoryPage.footer().openX();
@@ -42,12 +37,7 @@ public class FooterTest extends Base_Test {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void openFacebook() {
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get(("valid.password"))
-        );
-
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
+        InventoryPage inventoryPage = loginAsStandardUser();
 
         String originalWindow = getCurrentWindow();
         inventoryPage.footer().openFacebook();
@@ -63,12 +53,7 @@ public class FooterTest extends Base_Test {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void openLinkedIn() {
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get(("valid.password"))
-        );
-
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
+        InventoryPage inventoryPage = loginAsStandardUser();
 
         String originalWindow = getCurrentWindow();
         inventoryPage.footer().openLinkedIn();

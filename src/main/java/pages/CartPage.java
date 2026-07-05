@@ -85,7 +85,7 @@ public class CartPage extends BasePage {
         click(removeBtn);
     }
 
-    public int getCartcount(){
+    public int getCartCount(){
         return header.getCartCount();
     }
 }

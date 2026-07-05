@@ -4,7 +4,7 @@ import models.LoginData;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-import pages.LoginPage;
+import pages.*;
 import utils.AllureEnvironmentWriter;
 import utils.ConfigReader;
 import utils.DriverFactory;
@@ -51,6 +51,33 @@ public abstract class Base_Test {
                 user.username(),
                 user.password()
         );
+    }
+
+    protected InventoryPage loginAsStandardUser(){
+        login(
+                ConfigReader.get("valid.username"),
+                ConfigReader.get("valid.password")
+        );
+
+        return new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
+    }
+
+    protected ProductDetailPage loginAndOpenProductPage(String productName){
+        InventoryPage inventoryPage = loginAsStandardUser();
+        return inventoryPage.openProduct(productName);
+    }
+
+    protected CartPage loginAndOpenCartPage(String... products){
+        InventoryPage inventoryPage = loginAsStandardUser();
+        for (String product : products){
+            inventoryPage.addProductToCart(product);
+        }
+        return inventoryPage.openCart();
+    }
+
+    protected CheckoutPage loginAndOpenCheckoutPage(String... products){
+        CartPage cartPage = loginAndOpenCartPage(products);
+        return cartPage.checkout();
     }
 
     protected String getCurrentWindow(){

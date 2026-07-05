@@ -11,9 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import pages.CartPage;
 import pages.CheckoutPage;
 import pages.InventoryPage;
-import utils.DriverFactory;
 import utils.ScreenshotWatcher;
-import utils.ConfigReader;
 
 import java.util.List;
 
@@ -30,20 +28,12 @@ public class CartTest extends Base_Test{
     @MethodSource("utils.CsvDataProvider#products")
     void addItemtoCart(ProductData product){
         //Arrange (login)
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
-
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
         //Act
-        inventoryPage.addProductToCart(product.productName());
-        CartPage cartpage = inventoryPage.openCart();
+        CartPage cartpage = loginAndOpenCartPage(product.productName());
         //inventoryPage.addProductToCart("Sauce Labs Backpack");
 
         //Assert
-        assertEquals(1, inventoryPage.getCartCount());
+        assertEquals(1, cartpage.getCartCount());
         assertTrue(cartpage.hasProduct(product.productName()));
     }
 
@@ -53,27 +43,19 @@ public class CartTest extends Base_Test{
     @Test
     void removeItemfromCart(){
         //Arrange
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
-
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
-        inventoryPage.addProductToCart("Sauce Labs Bike Light");
+        CartPage cartPage = loginAndOpenCartPage("Sauce Labs Backpack",
+                "Sauce Labs Bike Light");
 
         //Act
-        CartPage cartpage = inventoryPage.openCart();
-        cartpage.removeProduct("Sauce Labs Backpack");
+        cartPage.removeProduct("Sauce Labs Backpack");
 
-        List<CartItem> items = cartpage.getCartItems();
+        List<CartItem> items = cartPage.getCartItems();
 
         //Assert
         assertEquals(1, items.size());
         assertFalse(items.stream().anyMatch(item -> item.getName().equals("Sauce Labs Backpack")));
         //check cart badge function
-        assertEquals(1, cartpage.getCartcount());
+        assertEquals(1, cartPage.getCartCount());
     }
 
     @Story("Checkout items")
@@ -82,18 +64,10 @@ public class CartTest extends Base_Test{
     @Test
     void checkout(){
         //Arrange
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
-
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
+        CartPage cartPage = loginAndOpenCartPage("Sauce Labs Backpack");
 
         //Act
-        CartPage cartpage = inventoryPage.openCart();
-        CheckoutPage checkoutpage = cartpage.checkout();
+        CheckoutPage checkoutpage = cartPage.checkout();
 
         //Assert
         assertTrue(checkoutpage.loadedPage());
@@ -105,18 +79,10 @@ public class CartTest extends Base_Test{
     @Test
     void continueShopping(){
         //Arrange
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
-
-        InventoryPage inventoryPage = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
+        CartPage cartPage = loginAndOpenCartPage("Sauce Labs Backpack");
 
         //Act
-        CartPage cartpage = inventoryPage.openCart();
-        InventoryPage inventorypage = cartpage.continueShopping();
+        InventoryPage inventorypage = cartPage.continueShopping();
 
         //Assert
         assertTrue(inventorypage.loadedPage());

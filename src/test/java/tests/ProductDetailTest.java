@@ -9,8 +9,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import pages.InventoryPage;
 import pages.ProductDetailPage;
-import utils.ConfigReader;
-import utils.DriverFactory;
 import utils.ScreenshotWatcher;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,14 +24,7 @@ public class ProductDetailTest extends Base_Test{
     @ParameterizedTest
     @MethodSource("utils.CsvDataProvider#products")
     void openProduct(ProductData product){
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
-
-        InventoryPage inventory = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
-        ProductDetailPage detailPage = inventory.openProduct(product.productName());
+        ProductDetailPage detailPage = loginAndOpenProductPage(product.productName());
 
         assertTrue(detailPage.loadedPage());
         assertEquals(product.productName(), detailPage.getProductName());
@@ -44,18 +35,11 @@ public class ProductDetailTest extends Base_Test{
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void backToProducts(){
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
+        ProductDetailPage detailPage = loginAndOpenProductPage("Sauce Labs Backpack");
 
-        InventoryPage inventory = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
+        InventoryPage inventory = detailPage.backToProducts();
 
-        ProductDetailPage detailPage = inventory.openProduct("Sauce Labs Backpack");
-
-        InventoryPage inventoryPage = detailPage.backToProducts();
-
-        assertTrue(inventoryPage.loadedPage());
+        assertTrue(inventory.loadedPage());
     }
 
     @Story("Add to cart from detail page")
@@ -63,14 +47,7 @@ public class ProductDetailTest extends Base_Test{
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void addProductFromDetailPage(){
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
-
-        InventoryPage inventory = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
-        ProductDetailPage detailPage = inventory.openProduct("Sauce Labs Backpack");
+        ProductDetailPage detailPage = loginAndOpenProductPage("Sauce Labs Backpack");
         detailPage.addToCart();
 
         assertEquals(1, detailPage.getCartCount());
@@ -81,14 +58,7 @@ public class ProductDetailTest extends Base_Test{
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void removeProductFromDetailPage(){
-        login(
-                ConfigReader.get("valid.username"),
-                ConfigReader.get("valid.password")
-        );
-
-        InventoryPage inventory = new InventoryPage(DriverFactory.getDriver(), timeoutSeconds);
-
-        ProductDetailPage detailPage = inventory.openProduct("Sauce Labs Backpack");
+        ProductDetailPage detailPage = loginAndOpenProductPage("Sauce Labs Backpack");
         detailPage.addToCart();
         detailPage.removeFromCart();
 
