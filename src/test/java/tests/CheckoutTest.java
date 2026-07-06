@@ -1,18 +1,18 @@
 package tests;
 
+import assertions.CartAssertions;
+import assertions.CheckoutAssertions;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import pages.*;
-import utils.ScreenshotWatcher;
+import assertions.InventoryAssertions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Epic("Swag Labs")
 @Feature("Checkout")
-@ExtendWith(ScreenshotWatcher.class)
 public class CheckoutTest extends Base_Test{
     @Story("Input User Information")
     @DisplayName("Input User information to the form")
@@ -23,11 +23,11 @@ public class CheckoutTest extends Base_Test{
         //Act
         CheckoutPage checkoutPage = loginAndOpenCheckoutPage("Sauce Labs Backpack");
 
-        CheckoutOverviewPage overviewpage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
+        CheckoutOverviewPage overviewPage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
 
         //Assert
-        assertTrue(overviewpage.loadedPage());
-        System.out.println(overviewpage.getCartItem());
+        CheckoutAssertions.assertOverviewLoaded(overviewPage);
+        System.out.println(overviewPage.getCartItem());
     }
 
     @Story("Finish checkout")
@@ -39,11 +39,11 @@ public class CheckoutTest extends Base_Test{
         //Act
         CheckoutPage checkoutPage = loginAndOpenCheckoutPage("Sauce Labs Backpack");
 
-        CheckoutOverviewPage overviewpage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
-        CompleteOrderPage completeorderpage = overviewpage.finish();
+        CheckoutOverviewPage overviewPage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
+        CompleteOrderPage completeorderPage = overviewPage.finish();
 
         //Assert
-        assertTrue(completeorderpage.loadedPage());
+        CheckoutAssertions.assertCompleteLoaded(completeorderPage);
     }
 
     @Story("Cancel checkout")
@@ -57,7 +57,7 @@ public class CheckoutTest extends Base_Test{
         CartPage returnedCartPage = checkoutPage.cancel();
 
         //Assert
-        assertTrue(returnedCartPage.loadedPage());
+        CartAssertions.assertLoaded(returnedCartPage);
     }
 
     @Story("User information required message")
@@ -68,17 +68,17 @@ public class CheckoutTest extends Base_Test{
         //Arrange (login)
         CartPage cartPage = loginAndOpenCartPage("Sauce Labs Backpack");
 
-        CheckoutPage checkoutpage = cartPage.checkout();
-        checkoutpage.enterFirstName("Shohei");
-        checkoutpage.enterLastName("Otani");
-        checkoutpage.enterPostalCode("");
-        checkoutpage.continueBtn();
+        CheckoutPage checkoutPage = cartPage.checkout();
+        checkoutPage.enterFirstName("Shohei");
+        checkoutPage.enterLastName("Otani");
+        checkoutPage.enterPostalCode("");
+        checkoutPage.continueBtn();
 
 
         //Assert
         //assertEquals("Error: First Name is required", checkoutpage.getErrorMessage());
         //assertEquals("Error: Last Name is required", checkoutpage.getErrorMessage());
-        assertEquals("Error: Postal Code is required", checkoutpage.getErrorMessage());
+        CheckoutAssertions.assertError(checkoutPage, "Error: Postal Code is required");
     }
 
     @Story("Cancel checkout from overview page")
@@ -89,9 +89,9 @@ public class CheckoutTest extends Base_Test{
         //Arrange (login)
         CheckoutPage checkoutPage = loginAndOpenCheckoutPage("Sauce Labs Backpack");
 
-        CheckoutOverviewPage overviewpage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
+        CheckoutOverviewPage overviewPage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
 
-        InventoryPage inventory = overviewpage.cancel();
-        assertTrue(inventory.loadedPage());
+        InventoryPage inventoryPage = overviewPage.cancel();
+        InventoryAssertions.assertLoaded(inventoryPage);
     }
 }

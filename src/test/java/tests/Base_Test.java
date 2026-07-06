@@ -8,11 +8,11 @@ import pages.*;
 import utils.AllureEnvironmentWriter;
 import utils.ConfigReader;
 import utils.DriverFactory;
-import utils.ScreenshotWatcher;
+import utils.ScreenshotExtension;
 
 import java.util.Set;
 
-@ExtendWith(ScreenshotWatcher.class)
+@ExtendWith(ScreenshotExtension.class)
 public abstract class Base_Test {
     //protected static WebDriver driver;
     protected int timeoutSeconds;

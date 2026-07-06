@@ -1,18 +1,17 @@
 package tests;
 
+import assertions.InventoryAssertions;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import pages.*;
-import utils.ScreenshotWatcher;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Epic("Swag Labs")
 @Feature("Complete order")
-@ExtendWith(ScreenshotWatcher.class)
 public class CompleteOrderTest extends Base_Test {
 
     @Story("Complete order")
@@ -45,7 +44,7 @@ public class CompleteOrderTest extends Base_Test {
         InventoryPage inventoryPageAfterBackHome = completeorderpage.backHome();
 
         //Assert
-        assertTrue(inventoryPageAfterBackHome.loadedPage());
+        InventoryAssertions.assertLoaded(inventoryPageAfterBackHome);
     }
 
 }

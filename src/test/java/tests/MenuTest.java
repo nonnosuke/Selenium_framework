@@ -1,5 +1,7 @@
 package tests;
 
+import assertions.InventoryAssertions;
+import assertions.LoginAssertions;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -8,13 +10,11 @@ import pages.InventoryPage;
 import pages.LoginPage;
 import pages.ProductDetailPage;
 import utils.DriverFactory;
-import utils.ScreenshotWatcher;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Swag Labs")
 @Feature("Menu")
-@ExtendWith(ScreenshotWatcher.class)
 public class MenuTest extends Base_Test{
     @Story("Logout")
     @DisplayName("Logout from menu bar")
@@ -27,7 +27,7 @@ public class MenuTest extends Base_Test{
 
         LoginPage login = inventoryPage.header().menu().logout();
 
-        assertTrue(login.loadedPage());
+        LoginAssertions.assertLoaded(login);
 
     }
 
@@ -40,7 +40,7 @@ public class MenuTest extends Base_Test{
         detailPage.header().openMenu();
         InventoryPage returnedInventoryPage = detailPage.header().menu().allItems();
 
-        assertTrue(returnedInventoryPage.loadedPage());
+        InventoryAssertions.assertLoaded(returnedInventoryPage);
     }
 
     @Story("Reset app state")
@@ -51,11 +51,12 @@ public class MenuTest extends Base_Test{
         InventoryPage inventoryPage = loginAsStandardUser();
 
         inventoryPage.addProductToCart("Sauce Labs Backpack");
-        assertTrue(inventoryPage.header().hasCartBadge());
+        InventoryAssertions.assertCartBadgeVisible(inventoryPage);
 
         inventoryPage.header().openMenu();
         inventoryPage.header().menu().resetAppState();
-        assertFalse(inventoryPage.header().hasCartBadge());
+
+        InventoryAssertions.assertCartBadgeHidden(inventoryPage); //Checking badge is disappeared
     }
 
     @Story("Navigate to About page")

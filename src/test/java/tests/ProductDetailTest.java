@@ -9,13 +9,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import pages.InventoryPage;
 import pages.ProductDetailPage;
-import utils.ScreenshotWatcher;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Swag Labs")
 @Feature("Product detail page")
-@ExtendWith(ScreenshotWatcher.class)
 public class ProductDetailTest extends Base_Test{
 
     @Story("Open product detail")

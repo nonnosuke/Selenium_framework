@@ -7,13 +7,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import pages.InventoryPage;
 import utils.ConfigReader;
 import utils.DriverFactory;
-import utils.ScreenshotWatcher;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Epic("Swag Labs")
 @Feature("Footer")
-@ExtendWith(ScreenshotWatcher.class)
 public class FooterTest extends Base_Test {
     @Story("Open X")
     @DisplayName("Open X from footer")
