@@ -76,6 +76,9 @@ public class ProductDetailTest extends Base_Test{
         ProductDetailAssertions.assertAddBtnVisible(detailPage);
     }
 
+    @Story("Cart badge count")
+    @DisplayName("Cart badge count")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     void cartBadgeCount(){
         ProductDetailPage detailPage = loginAndOpenProductPage("Sauce Labs Backpack");
