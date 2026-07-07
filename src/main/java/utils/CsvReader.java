@@ -11,6 +11,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 public final class CsvReader {
     private CsvReader(){}
@@ -24,16 +27,31 @@ public final class CsvReader {
             throw new IllegalArgumentException("CSV file not found: " + resourcePath);
         }
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8))){
-            String line;
+        try (
+                BufferedReader reader =
+                        new BufferedReader(
+                                new InputStreamReader(
+                                        input,
+                                        StandardCharsets.UTF_8));
 
-            reader.readLine(); //変数に保存していないため、Headerは受け取らない
+                CSVParser parser =
+                        CSVFormat.DEFAULT
+                                .builder()
+                                .setSkipHeaderRecord(true)
+                                .setIgnoreSurroundingSpaces(true)
+                                .setHeader()
+                                .build()
+                                .parse(reader)
+        ) {
+            for (CSVRecord record : parser) {
 
-            while ((line = reader.readLine()) != null){
-                if (line.isBlank()){
-                    continue;
+                String[] row = new String[record.size()];
+
+                for (int i = 0; i < record.size(); i++) {
+                    row[i] = record.get(i);
                 }
-                rows.add(line.split(","));
+
+                rows.add(row);
             }
 
         } catch (IOException e){
@@ -61,11 +79,11 @@ public final class CsvReader {
         List<ProductData> productData = new ArrayList<>();
         for(String[] row : csvRows){
 
-            if (row.length != 1){
+            if (row.length != 3){
                 throw new IllegalArgumentException("Invalid CSV row: " + Arrays.toString(row));
             }
 
-            productData.add(new ProductData(row[0]));
+            productData.add(new ProductData(row[0], row[1], Double.parseDouble(row[2])));
         }
         return productData;
     }

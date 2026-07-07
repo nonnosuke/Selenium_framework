@@ -26,17 +26,26 @@ public class ProductDetailPage extends BasePage {
     }
 
     private final By productName = By.className("inventory_details_name");
+    private final By description = By.className("inventory_details_desc");
+    private final By price = By.className("inventory_details_price");
     private final By backBtn = By.id("back-to-products");
     private final By addToCartBtn = By.cssSelector("button[id^='add-to-cart']"); //^= means start from '~'
     private final By removeBtn = By.cssSelector("button[id^='remove']");
-    private final By cartBadge = By.className("shopping_cart_badge");
 
     public boolean loadedPage(){
-        return isDisplayed(backBtn);
+        return isDisplayed(productName);
     }
 
     public String getProductName(){
         return getText(productName);
+    }
+
+    public String getDescription(){
+        return getText(description);
+    }
+
+    public double getPrice(){
+        return Double.parseDouble(getText(price).replace("$", ""));
     }
 
     public void addToCart(){
@@ -46,6 +55,8 @@ public class ProductDetailPage extends BasePage {
     public boolean addBtnDisplayed(){
         return isDisplayed(addToCartBtn);
     }
+
+    public boolean removeBtnDisplayed(){ return isDisplayed(removeBtn); }
 
     public void removeFromCart(){
         click(removeBtn);
@@ -63,5 +74,4 @@ public class ProductDetailPage extends BasePage {
         click(backBtn);
         return new InventoryPage(driver, timeoutSeconds);
     }
-
 }
