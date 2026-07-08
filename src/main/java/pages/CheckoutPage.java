@@ -51,7 +51,6 @@ public class CheckoutPage extends BasePage {
         return continueBtn();
     }
 
-
     public CartPage cancel(){
         click(cancelBtn);
         return new CartPage(driver, timeoutSeconds);

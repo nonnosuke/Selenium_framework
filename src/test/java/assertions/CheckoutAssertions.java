@@ -8,21 +8,21 @@ import pages.LoginPage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public final class CheckoutAssertions {
+public final class CheckoutAssertions extends BaseAssertions{
     private CheckoutAssertions(){}
 
     public static void assertCheckoutLoaded(CheckoutPage page){
-        assertTrue(page.loadedPage());
+        assertPageLoaded(page.loadedPage());
     }
     public static void assertOverviewLoaded(CheckoutOverviewPage page){
-        assertTrue(page.loadedPage());
+        assertPageLoaded(page.loadedPage());
     }
 
     public static void assertCompleteLoaded(CompleteOrderPage page){
-        assertTrue(page.loadedPage());
+        assertPageLoaded(page.loadedPage());
     }
 
     public static void assertError(CheckoutPage page, String message){
-        assertEquals(message, page.getErrorMessage());
+        assertText(message, page.getErrorMessage());
     }
 }

@@ -8,23 +8,23 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public final class InventoryAssertions {
+public final class InventoryAssertions extends BaseAssertions {
     InventoryAssertions(){}
 
     public static void assertLoaded(InventoryPage page){
-        assertTrue(page.loadedPage());
+        assertPageLoaded(page.loadedPage());
     }
 
     public static void assertCartBadgeVisible(InventoryPage page){
-        assertTrue(page.header().hasCartBadge());
+        assertVisible(page.header().hasCartBadge());
     }
 
     public static void assertCartBadgeHidden(InventoryPage page){
-        assertFalse(page.header().hasCartBadge());
+        assertHidden(page.header().hasCartBadge());
     }
 
     public static void assertCartCount(InventoryPage page, int expected){
-        assertEquals(expected, page.header().getCartCount());
+        assertCount(expected, page.header().getCartCount());
     }
 
     public static void assertSortedByAZ(InventoryPage page){

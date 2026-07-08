@@ -4,19 +4,19 @@ import pages.ProductDetailPage;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public final class ProductDetailAssertions {
+public final class ProductDetailAssertions extends BaseAssertions{
     private ProductDetailAssertions(){}
 
     public static void assertLoaded(ProductDetailPage page){
-        assertTrue(page.loadedPage());
+        assertPageLoaded(page.loadedPage());
     }
 
     public static void assertProductName(ProductDetailPage page, String expected){
-        assertEquals(expected, page.getProductName());
+        assertText(expected, page.getProductName());
     }
 
     public static void assertDescription(ProductDetailPage page, String expected){
-        assertEquals(expected, page.getDescription());
+        assertText(expected, page.getDescription());
     }
 
     public static void assertPrice(ProductDetailPage page, double expected){
@@ -24,22 +24,22 @@ public final class ProductDetailAssertions {
     }
 
     public static void assertAddBtnVisible(ProductDetailPage page){
-        assertTrue(page.addBtnDisplayed());
+        assertVisible(page.addBtnDisplayed());
     }
 
     public static void assertRemoveBtnVisible(ProductDetailPage page){
-        assertTrue(page.removeBtnDisplayed());
+        assertVisible(page.removeBtnDisplayed());
     }
 
     public static void assertCartBadgeVisible(ProductDetailPage page){
-        assertTrue(page.hasCartBadge());
+        assertVisible(page.hasCartBadge());
     }
 
     public static void assertCartBadgeHidden(ProductDetailPage page){
-        assertFalse(page.hasCartBadge());
+        assertHidden(page.hasCartBadge());
     }
 
     public static void assertCartCount(ProductDetailPage page, int expected){
-        assertEquals(expected, page.getCartCount());
+        assertCount(expected, page.getCartCount());
     }
 }

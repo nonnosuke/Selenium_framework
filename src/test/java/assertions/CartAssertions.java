@@ -7,15 +7,15 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public final class CartAssertions {
+public final class CartAssertions extends BaseAssertions {
     private CartAssertions(){}
 
     public static void assertLoaded(CartPage page){
-        assertTrue(page.loadedPage());
+        assertPageLoaded(page.loadedPage());
     }
 
     public static void assertCartCount(CartPage page, int expected){
-        assertEquals(expected, page.getCartCount());
+        assertCount(expected, page.getCartCount());
     }
 
     public static void assertHasProduct(CartPage page, String productName){
