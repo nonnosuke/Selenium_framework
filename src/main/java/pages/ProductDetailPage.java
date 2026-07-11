@@ -48,8 +48,9 @@ public class ProductDetailPage extends BasePage {
         return Double.parseDouble(getText(price).replace("$", ""));
     }
 
-    public void addToCart(){
+    public ProductDetailPage addToCart(){
         click(addToCartBtn);
+        return this;
     }
 
     public boolean addBtnDisplayed(){
@@ -58,8 +59,9 @@ public class ProductDetailPage extends BasePage {
 
     public boolean removeBtnDisplayed(){ return isDisplayed(removeBtn); }
 
-    public void removeFromCart(){
+    public ProductDetailPage removeFromCart(){
         click(removeBtn);
+        return this;
     }
 
     public int getCartCount(){

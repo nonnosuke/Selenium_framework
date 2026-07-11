@@ -55,8 +55,8 @@ public class ProductDetailTest extends Base_Test{
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void addProductFromDetailPage(){
-        ProductDetailPage detailPage = loginAndOpenProductPage("Sauce Labs Backpack");
-        detailPage.addToCart();
+        ProductDetailPage detailPage = loginAndOpenProductPage("Sauce Labs Backpack")
+                .addToCart();
 
         ProductDetailAssertions.assertCartBadgeVisible(detailPage);
         ProductDetailAssertions.assertCartCount(detailPage, 1);
@@ -68,9 +68,9 @@ public class ProductDetailTest extends Base_Test{
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void removeProductFromDetailPage(){
-        ProductDetailPage detailPage = loginAndOpenProductPage("Sauce Labs Backpack");
-        detailPage.addToCart();
-        detailPage.removeFromCart();
+        ProductDetailPage detailPage = loginAndOpenProductPage("Sauce Labs Backpack")
+                .addToCart()
+                .removeFromCart();
 
         ProductDetailAssertions.assertCartBadgeHidden(detailPage);
         ProductDetailAssertions.assertAddBtnVisible(detailPage);
@@ -81,8 +81,8 @@ public class ProductDetailTest extends Base_Test{
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void cartBadgeCount(){
-        ProductDetailPage detailPage = loginAndOpenProductPage("Sauce Labs Backpack");
-        detailPage.addToCart();
+        ProductDetailPage detailPage = loginAndOpenProductPage("Sauce Labs Backpack")
+                .addToCart();
 
         ProductDetailAssertions.assertCartCount(detailPage, 1);
     }

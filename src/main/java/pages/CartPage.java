@@ -21,7 +21,6 @@ public class CartPage extends BasePage {
     private final By continueShoppingBtn = By.id("continue-shopping");
     private final By cartItem = By.className("cart_item");
 
-
     public CartPage (WebDriver driver, int timeoutSeconds){
         super(driver, timeoutSeconds);
         this.footer = new FooterComponent(driver, timeoutSeconds);
@@ -78,14 +77,15 @@ public class CartPage extends BasePage {
         return new InventoryPage(driver, timeoutSeconds);
     }
 
-    public void removeProduct(String productName){
+    public CartPage removeProduct(String productName){
         By removeBtn = By.xpath(
                 "//div[@class='cart_item'][.//div[text()='" + productName + "']]//button"
         );
         click(removeBtn);
+        return this;
     }
 
     public int getCartCount(){
-        return header.getCartCount();
+        return header().getCartCount();
     }
 }

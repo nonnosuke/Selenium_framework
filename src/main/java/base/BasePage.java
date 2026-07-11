@@ -4,6 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import org.openqa.selenium.bidi.network.Header;
+import pages.components.FooterComponent;
+import pages.components.HeaderComponent;
 import utils.WaitUtils;
 
 import java.util.List;
@@ -15,6 +18,7 @@ public abstract class BasePage {
     public BasePage(WebDriver driver, int timeoutSeconds){
         this.driver = driver;
         this.timeoutSeconds = timeoutSeconds;
+
     }
 
     protected List<WebElement> finds(By locator){

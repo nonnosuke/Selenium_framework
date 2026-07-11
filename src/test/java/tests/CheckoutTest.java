@@ -66,14 +66,12 @@ public class CheckoutTest extends Base_Test{
     @Test
     void requireField(){
         //Arrange (login)
-        CartPage cartPage = loginAndOpenCartPage("Sauce Labs Backpack");
-
-        CheckoutPage checkoutPage = cartPage.checkout();
-        checkoutPage.enterFirstName("Shohei");
-        checkoutPage.enterLastName("Otani");
-        checkoutPage.enterPostalCode("");
+        CheckoutPage checkoutPage = loginAndOpenCartPage("Sauce Labs Backpack")
+                .checkout()
+                .enterFirstName("Shohei")
+                .enterLastName("Otani")
+                .enterPostalCode("");
         checkoutPage.continueBtn();
-
 
         //Assert
         //assertEquals("Error: First Name is required", checkoutpage.getErrorMessage());

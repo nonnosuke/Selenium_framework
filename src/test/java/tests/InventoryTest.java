@@ -24,13 +24,11 @@ public class InventoryTest extends Base_Test {
     @ParameterizedTest
     @MethodSource("utils.CsvDataProvider#products")
     void addItemtoCart(ProductData product) {
-        InventoryPage inventoryPage = loginAsStandardUser();
+        CartPage cartPage = loginAsStandardUser()
+                .addProductToCart(product.productName())
+                .openCart();
 
-        inventoryPage.addProductToCart(product.productName());
-
-        InventoryAssertions.assertCartCount(inventoryPage, 1);
-
-        CartPage cartPage = inventoryPage.openCart();
+        CartAssertions.assertCartCount(cartPage, 1);
         CartAssertions.assertHasProduct(cartPage, product.productName());
     }
 
@@ -39,11 +37,9 @@ public class InventoryTest extends Base_Test {
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void removeItemFromInventory() {
-        InventoryPage inventoryPage = loginAsStandardUser();
-
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
-
-        inventoryPage.removeProductFromCart("Sauce Labs Backpack");
+        InventoryPage inventoryPage = loginAsStandardUser()
+                .addProductToCart("Sauce Labs Backpack")
+                .removeProductFromCart("Sauce Labs Backpack");
 
         InventoryAssertions.assertCartBadgeHidden(inventoryPage);
 
@@ -66,8 +62,8 @@ public class InventoryTest extends Base_Test {
     @Severity(SeverityLevel.NORMAL)
     @Test
     void sortNameAZ(){
-        InventoryPage inventoryPage = loginAsStandardUser();
-        inventoryPage.sortByNameAZ();
+        InventoryPage inventoryPage = loginAsStandardUser()
+                .sortByNameAZ();
 
         InventoryAssertions.assertSortedByAZ(inventoryPage);
     }
@@ -77,8 +73,8 @@ public class InventoryTest extends Base_Test {
     @Severity(SeverityLevel.NORMAL)
     @Test
     void sortNameZA(){
-        InventoryPage inventoryPage = loginAsStandardUser();
-        inventoryPage.sortByNameZA();
+        InventoryPage inventoryPage = loginAsStandardUser()
+                .sortByNameZA();
 
         InventoryAssertions.assertSortedByZA(inventoryPage);
     }
@@ -88,8 +84,8 @@ public class InventoryTest extends Base_Test {
     @Severity(SeverityLevel.NORMAL)
     @Test
     void sortPriceLowToHigh(){
-        InventoryPage inventoryPage = loginAsStandardUser();
-        inventoryPage.sortByPriceLowToHigh();
+        InventoryPage inventoryPage = loginAsStandardUser()
+                .sortByPriceLowToHigh();
 
         InventoryAssertions.assertSortedByPriceAscending(inventoryPage);
     }
@@ -99,8 +95,8 @@ public class InventoryTest extends Base_Test {
     @Severity(SeverityLevel.NORMAL)
     @Test
     void sortProceHighToLow(){
-        InventoryPage inventoryPage = loginAsStandardUser();
-        inventoryPage.sortByPriceHighToLow();
+        InventoryPage inventoryPage = loginAsStandardUser()
+                .sortByPriceHighToLow();
 
         InventoryAssertions.assertSortedByPriceDescending(inventoryPage);
     }
@@ -110,11 +106,10 @@ public class InventoryTest extends Base_Test {
     @Severity(SeverityLevel.NORMAL)
     @Test
     void cartBadgeCount(){
-        InventoryPage inventoryPage = loginAsStandardUser();
-
-        inventoryPage.addProductToCart("Sauce Labs Backpack");
-        inventoryPage.addProductToCart("Sauce Labs Bike Light");
-        inventoryPage.addProductToCart("Sauce Labs Bolt T-Shirt");
+        InventoryPage inventoryPage = loginAsStandardUser()
+                .addProductToCart("Sauce Labs Backpack")
+                .addProductToCart("Sauce Labs Bike Light")
+                .addProductToCart("Sauce Labs Bolt T-Shirt");
 
         InventoryAssertions.assertCartBadgeVisible(inventoryPage);
         InventoryAssertions.assertCartCount(inventoryPage,3);

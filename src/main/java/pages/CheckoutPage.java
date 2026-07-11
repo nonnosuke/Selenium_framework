@@ -22,16 +22,19 @@ public class CheckoutPage extends BasePage {
         return "Checkout: Your Information".equals(getText(pageTitle));
     }
 
-    public void enterFirstName(String firstName){
+    public CheckoutPage enterFirstName(String firstName){
         type(firstNameInput, firstName);
+        return this;
     }
 
-    public void enterLastName(String lastName){
+    public CheckoutPage enterLastName(String lastName){
         type(lastNameInput, lastName);
+        return this;
     }
 
-    public void enterPostalCode(String postalcode){
+    public CheckoutPage enterPostalCode(String postalcode){
         type(postalCodeInput, postalcode);
+        return this;
     }
 
     public CheckoutOverviewPage continueBtn(){

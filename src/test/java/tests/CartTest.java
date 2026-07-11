@@ -28,10 +28,8 @@ public class CartTest extends Base_Test{
     void removeItemfromCart(){
         //Arrange
         CartPage cartPage = loginAndOpenCartPage("Sauce Labs Backpack",
-                "Sauce Labs Bike Light");
-
-        //Act
-        cartPage.removeProduct("Sauce Labs Backpack");
+                "Sauce Labs Bike Light")
+                .removeProduct("Sauce Labs Backpack");
 
         //Assert
         CartAssertions.assertItemCount(cartPage, 1);
@@ -46,10 +44,8 @@ public class CartTest extends Base_Test{
     @Test
     void checkout(){
         //Arrange
-        CartPage cartPage = loginAndOpenCartPage("Sauce Labs Backpack");
-
-        //Act
-        CheckoutPage checkoutPage = cartPage.checkout();
+        CheckoutPage checkoutPage = loginAndOpenCartPage("Sauce Labs Backpack")
+                .checkout();
 
         //Assert
         CheckoutAssertions.assertCheckoutLoaded(checkoutPage);

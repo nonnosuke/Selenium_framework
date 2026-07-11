@@ -39,18 +39,20 @@ public class InventoryPage extends BasePage {
         return "Products".equals(getText(pageTitle));
     }
 
-    public void addProductToCart(String productName){
+    public InventoryPage addProductToCart(String productName){
         By addBtn = By.xpath(
                 "//div[contains(@class,'inventory_item')][.//div[text()='" + productName + "']]//button"
         );
         click(addBtn);
+        return this;
     }
 
-    public void removeProductFromCart(String productName){
+    public InventoryPage removeProductFromCart(String productName){
         By removeBtn = By.xpath("//div[text()='" + productName +
                 "']/ancestor::div[@class='inventory_item']//button"
         );
         click(removeBtn);
+        return this;
     }
 
     private void selectSort(String value){
@@ -58,20 +60,24 @@ public class InventoryPage extends BasePage {
         select.selectByValue(value);
     }
 
-    public void sortByNameAZ(){
+    public InventoryPage sortByNameAZ(){
         selectSort("az");
+        return this;
     }
 
-    public void sortByNameZA(){
+    public InventoryPage sortByNameZA(){
         selectSort("za");
+        return this;
     }
 
-    public void sortByPriceLowToHigh(){
+    public InventoryPage sortByPriceLowToHigh(){
         selectSort("lohi");
+        return this;
     }
 
-    public void sortByPriceHighToLow(){
+    public InventoryPage sortByPriceHighToLow(){
         selectSort("hilo");
+        return this;
     }
 
     public List<String> getProductNames(){
@@ -87,10 +93,6 @@ public class InventoryPage extends BasePage {
                 .map(e -> e.getText().replace("$", ""))
                 .map(Double::parseDouble)
                 .toList();
-    }
-
-    public int getCartCount(){
-        return header.getCartCount();
     }
 
     public CartPage openCart(){
