@@ -14,13 +14,6 @@ public final class CheckoutAssertions extends BaseAssertions{
     public static void assertCheckoutLoaded(CheckoutPage page){
         assertPageLoaded(page.loadedPage());
     }
-    public static void assertOverviewLoaded(CheckoutOverviewPage page){
-        assertPageLoaded(page.loadedPage());
-    }
-
-    public static void assertCompleteLoaded(CompleteOrderPage page){
-        assertPageLoaded(page.loadedPage());
-    }
 
     public static void assertError(CheckoutPage page, String message){
         assertText(message, page.getErrorMessage());

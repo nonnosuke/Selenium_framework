@@ -2,11 +2,11 @@ package tests;
 
 import assertions.CartAssertions;
 import assertions.CheckoutAssertions;
+import assertions.CheckoutOverviewAssertions;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.*;
-import assertions.InventoryAssertions;
 import utils.CheckoutDataFactory;
 
 
@@ -24,22 +24,9 @@ public class CheckoutTest extends Base_Test{
                 .continueBtn();
 
         //Assert
-        CheckoutAssertions.assertOverviewLoaded(overviewPage);
+        CheckoutOverviewAssertions.assertLoaded(overviewPage);
     }
 
-    @Story("Finish checkout")
-    @DisplayName("Complete form and finish order")
-    @Severity(SeverityLevel.BLOCKER)
-    @Test
-    void finishOrder(){
-        CompleteOrderPage completeOrderPage = loginAndOpenCheckoutPage("Sauce Labs Backpack")
-                .fill(CheckoutDataFactory.valid())
-                        .continueBtn()
-                                .finish();
-
-        //Assert
-        CheckoutAssertions.assertCompleteLoaded(completeOrderPage);
-    }
 
     @Story("Cancel checkout")
     @DisplayName("After moving to checkout page, cancel checkout")
@@ -68,18 +55,4 @@ public class CheckoutTest extends Base_Test{
         CheckoutAssertions.assertError(checkoutPage, "Error: Postal Code is required");
     }
 
-    @Story("Cancel checkout from overview page")
-    @DisplayName("Cancel checkout from overview")
-    @Severity(SeverityLevel.NORMAL)
-    @Test
-    void cancelCheckoutOverview(){
-        CheckoutOverviewPage overviewPage = loginAndOpenCheckoutPage("Sauce Labs Backpack")
-                .fill(CheckoutDataFactory.valid())
-                .continueBtn();
-
-        InventoryPage inventoryPage = overviewPage.cancel();
-
-        //Assert
-        InventoryAssertions.assertLoaded(inventoryPage);
-    }
 }

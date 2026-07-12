@@ -17,6 +17,9 @@ public class CheckoutOverviewPage extends BasePage {
 
     private final By pageTitle = By.className("title");
     private final By cartItem = By.className("cart_item");
+    private final By itemTotal = By.className("summary_subtotal_label");
+    private final By tax = By.className("summary_tax_label");
+    private final By total = By.className("summary_total_label");
     private final By finishBtn = By.id("finish");
     private final By cancelBtn = By.id("cancel");
 
@@ -24,7 +27,7 @@ public class CheckoutOverviewPage extends BasePage {
         return "Checkout: Overview".equals(getText(pageTitle));
     }
 
-    public List<CartItem> getCartItem(){
+    public List<CartItem> getCartItems(){
         List<WebElement> elements = driver.findElements(cartItem);
         List<CartItem> items = new ArrayList<>();
 
@@ -44,6 +47,21 @@ public class CheckoutOverviewPage extends BasePage {
             items.add(new CartItem(name, price, quantity));
         }
         return items;
+    }
+
+    public double getItemTotal(){
+        String text = getText(itemTotal);
+        return Double.parseDouble(text.replace("Item total: $", ""));
+    }
+
+    public double getTax(){
+        String text = getText(tax);
+        return Double.parseDouble(text.replace("Tax: $", ""));
+    }
+
+    public double getTotal(){
+        String text = getText(total);
+        return Double.parseDouble(text.replace("Total: $", ""));
     }
 
     public CompleteOrderPage finish(){
