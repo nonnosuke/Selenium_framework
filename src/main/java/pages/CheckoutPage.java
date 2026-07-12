@@ -1,6 +1,7 @@
 package pages;
 
 import base.BasePage;
+import models.CheckoutData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -52,6 +53,13 @@ public class CheckoutPage extends BasePage {
         enterPostalCode(postalCode);
 
         return continueBtn();
+    }
+
+    public CheckoutPage fill(CheckoutData data){
+        enterFirstName(data.firstName());
+        enterLastName(data.lastName());
+        enterPostalCode(data.postalCode());
+        return this;
     }
 
     public CartPage cancel(){

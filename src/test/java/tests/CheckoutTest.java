@@ -7,9 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.*;
 import assertions.InventoryAssertions;
+import utils.CheckoutDataFactory;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Epic("Swag Labs")
 @Feature("Checkout")
@@ -19,15 +18,13 @@ public class CheckoutTest extends Base_Test{
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void inputUserInfo(){
-        //Arrange (login)
-        //Act
-        CheckoutPage checkoutPage = loginAndOpenCheckoutPage("Sauce Labs Backpack");
-
-        CheckoutOverviewPage overviewPage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
+        CheckoutOverviewPage overviewPage =
+                loginAndOpenCheckoutPage("Sauce Labs Backpack")
+                .fill(CheckoutDataFactory.valid())
+                .continueBtn();
 
         //Assert
         CheckoutAssertions.assertOverviewLoaded(overviewPage);
-        System.out.println(overviewPage.getCartItem());
     }
 
     @Story("Finish checkout")
@@ -35,15 +32,13 @@ public class CheckoutTest extends Base_Test{
     @Severity(SeverityLevel.BLOCKER)
     @Test
     void finishOrder(){
-        //Arrange (login)
-        //Act
-        CheckoutPage checkoutPage = loginAndOpenCheckoutPage("Sauce Labs Backpack");
-
-        CheckoutOverviewPage overviewPage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
-        CompleteOrderPage completeorderPage = overviewPage.finish();
+        CompleteOrderPage completeOrderPage = loginAndOpenCheckoutPage("Sauce Labs Backpack")
+                .fill(CheckoutDataFactory.valid())
+                        .continueBtn()
+                                .finish();
 
         //Assert
-        CheckoutAssertions.assertCompleteLoaded(completeorderPage);
+        CheckoutAssertions.assertCompleteLoaded(completeOrderPage);
     }
 
     @Story("Cancel checkout")
@@ -51,13 +46,11 @@ public class CheckoutTest extends Base_Test{
     @Severity(SeverityLevel.CRITICAL)
     @Test
     void cancelCheckout(){
-        //Arrange (login)
-        //Act
-        CheckoutPage checkoutPage = loginAndOpenCheckoutPage("Sauce Labs Backpack");
-        CartPage returnedCartPage = checkoutPage.cancel();
+        CartPage cartPage = loginAndOpenCheckoutPage("Sauce Labs Backpack")
+                .cancel();
 
         //Assert
-        CartAssertions.assertLoaded(returnedCartPage);
+        CartAssertions.assertLoaded(cartPage);
     }
 
     @Story("User information required message")
@@ -65,17 +58,13 @@ public class CheckoutTest extends Base_Test{
     @Severity(SeverityLevel.NORMAL)
     @Test
     void requireField(){
-        //Arrange (login)
-        CheckoutPage checkoutPage = loginAndOpenCartPage("Sauce Labs Backpack")
-                .checkout()
-                .enterFirstName("Shohei")
-                .enterLastName("Otani")
-                .enterPostalCode("");
+        CheckoutPage checkoutPage = loginAndOpenCheckoutPage("Sauce Labs Backpack")
+                .fill(CheckoutDataFactory.withoutPostalCode());
         checkoutPage.continueBtn();
 
         //Assert
-        //assertEquals("Error: First Name is required", checkoutpage.getErrorMessage());
-        //assertEquals("Error: Last Name is required", checkoutpage.getErrorMessage());
+        //CheckoutAssertions.assertError(checkoutPage, "Error: First Name is required");
+        //CheckoutAssertions.assertError(checkoutPage, "Error: Last Name is required");
         CheckoutAssertions.assertError(checkoutPage, "Error: Postal Code is required");
     }
 
@@ -84,12 +73,13 @@ public class CheckoutTest extends Base_Test{
     @Severity(SeverityLevel.NORMAL)
     @Test
     void cancelCheckoutOverview(){
-        //Arrange (login)
-        CheckoutPage checkoutPage = loginAndOpenCheckoutPage("Sauce Labs Backpack");
-
-        CheckoutOverviewPage overviewPage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
+        CheckoutOverviewPage overviewPage = loginAndOpenCheckoutPage("Sauce Labs Backpack")
+                .fill(CheckoutDataFactory.valid())
+                .continueBtn();
 
         InventoryPage inventoryPage = overviewPage.cancel();
+
+        //Assert
         InventoryAssertions.assertLoaded(inventoryPage);
     }
 }
