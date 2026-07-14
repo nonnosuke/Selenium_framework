@@ -13,20 +13,20 @@ public final class CheckoutOverviewAssertions extends BaseAssertions{
         assertPageLoaded(page.loadedPage());
     }
 
-    public static void assertItemTotal(CheckoutOverviewPage page, double expected){
-        assertEquals(expected, page.getItemTotal());
+    public static void assertItemSubtotal(CheckoutOverviewPage page, double expected){
+        assertEquals(expected, page.priceSummary().getSubTotal());
     }
 
     public static void assertTax(CheckoutOverviewPage page, double expected){
-        assertEquals(expected, page.getTax());
+        assertEquals(expected, page.priceSummary().getTax());
     }
 
     public static void assertTotal(CheckoutOverviewPage page, double expected){
-        assertEquals(expected, page.getTotal());
+        assertEquals(expected, page.priceSummary().getTotal());
     }
 
-    public static void assertCartItems(CheckoutOverviewPage page, int expected){
-        assertEquals(expected, page.getCartItems().size());
+    public static void assertItemCount(CheckoutOverviewPage page, int expected){
+        assertEquals(expected, page.cartItems().getItemCount());
     }
 
     public static void assertInventoryLoaded(InventoryPage page){

@@ -24,7 +24,7 @@ public final class InventoryAssertions extends BaseAssertions {
     }
 
     public static void assertCartCount(InventoryPage page, int expected){
-        assertCount(expected, page.header().getCartCount());
+        assertCount(expected, page.header().getCartBadgeCount());
     }
 
     public static void assertSortedByAZ(InventoryPage page){

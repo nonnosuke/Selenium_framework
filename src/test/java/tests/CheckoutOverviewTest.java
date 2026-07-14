@@ -1,6 +1,5 @@
 package tests;
 
-import assertions.CheckoutAssertions;
 import assertions.CheckoutOverviewAssertions;
 import assertions.InventoryAssertions;
 import io.qameta.allure.*;
@@ -22,7 +21,9 @@ public class CheckoutOverviewTest extends Base_Test{
     @Severity(SeverityLevel.BLOCKER)
     @Test
     void finishOrder(){
-        CheckoutOverviewPage overviewPage = loginAndOpenCheckoutPage("Sauce Labs Backpack")
+        ProductData backpack =
+                CsvDataProvider.getProduct("Sauce Labs Backpack");
+        CheckoutOverviewPage overviewPage = loginAndOpenCheckoutPage(backpack.productName())
                 .fill(CheckoutDataFactory.valid())
                 .continueBtn();
         CompleteOrderPage completeOrderPage = overviewPage.finish();
@@ -46,56 +47,73 @@ public class CheckoutOverviewTest extends Base_Test{
         InventoryPage inventoryPage = overviewPage.cancel();
 
         //Assert
-        CheckoutOverviewAssertions.assertInventoryLoaded(inventoryPage);
+        InventoryAssertions.assertLoaded(inventoryPage);
     }
 
+    @Story("Verify number of items in a cart")
+    @DisplayName("Verify cart item number")
+    @Severity(SeverityLevel.NORMAL)
     @Test
     void verifyCartItem(){
-        CheckoutOverviewPage overviewPage = loginAndOpenCheckoutPage("Sauce Labs Backpack")
+        ProductData backpack = CsvDataProvider.getProduct("Sauce Labs Backpack");
+        CheckoutOverviewPage overviewPage = loginAndOpenCheckoutPage(backpack.productName())
                 .fill(CheckoutDataFactory.valid())
                 .continueBtn();
 
-        CheckoutOverviewAssertions.assertCartItems(overviewPage, 1);
+        //Assert
+        CheckoutOverviewAssertions.assertItemCount(overviewPage, 1);
     }
 
+    @Story("Verify items total price without tax")
+    @DisplayName("Verify total price without tax")
+    @Severity(SeverityLevel.NORMAL)
     @Test
-    void verifyItemTotal(){
+    void verifySubTotal(){
         ProductData backpack = CsvDataProvider.getProduct("Sauce Labs Backpack");
 
-        CheckoutOverviewPage overviewPage = loginAndOpenCheckoutPage("Sauce Labs Backpack")
+        CheckoutOverviewPage overviewPage = loginAndOpenCheckoutPage(backpack.productName())
                 .fill(CheckoutDataFactory.valid())
                 .continueBtn();
 
         double itemTotal = PriceCalculator.itemTotal(backpack.price());
 
-        CheckoutOverviewAssertions.assertItemTotal(overviewPage, itemTotal);
+        //Assert
+        CheckoutOverviewAssertions.assertItemSubtotal(overviewPage, itemTotal);
     }
 
+    @Story("Verify items total tax")
+    @DisplayName("Verify total tax")
+    @Severity(SeverityLevel.NORMAL)
     @Test
     void verifyTax(){
         ProductData backpack = CsvDataProvider.getProduct("Sauce Labs Backpack");
 
-        CheckoutOverviewPage overviewPage = loginAndOpenCheckoutPage("Sauce Labs Backpack")
+        CheckoutOverviewPage overviewPage = loginAndOpenCheckoutPage(backpack.productName())
                 .fill(CheckoutDataFactory.valid())
                 .continueBtn();
 
         double itemTotal = PriceCalculator.itemTotal(backpack.price());
         double tax = PriceCalculator.tax(itemTotal);
 
+        //Assert
         CheckoutOverviewAssertions.assertTax(overviewPage, tax);
     }
 
+    @Story("Verify items total price with tax")
+    @DisplayName("Verify total price with tax")
+    @Severity(SeverityLevel.NORMAL)
     @Test
     void verifyTotal(){
         ProductData backpack = CsvDataProvider.getProduct("Sauce Labs Backpack");
 
-        CheckoutOverviewPage overviewPage = loginAndOpenCheckoutPage("Sauce Labs Backpack")
+        CheckoutOverviewPage overviewPage = loginAndOpenCheckoutPage(backpack.productName())
                 .fill(CheckoutDataFactory.valid())
                 .continueBtn();
 
         double itemTotal = PriceCalculator.itemTotal(backpack.price());
         double total = PriceCalculator.total(itemTotal);
 
+        //Assert
         CheckoutOverviewAssertions.assertTotal(overviewPage, total);
     }
 }

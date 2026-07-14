@@ -1,7 +1,7 @@
 package pages;
 
 import base.BasePage;
-import org.openqa.selenium.By;
+import locators.LoginLocators;
 import org.openqa.selenium.WebDriver;
 
 public class LoginPage extends BasePage {
@@ -10,23 +10,18 @@ public class LoginPage extends BasePage {
         super(driver, timeoutSeconds);
     }
 
-    private final By usernameField = By.id("user-name");
-    private final By passwordField = By.id("password");
-    private final By loginButton = By.id("login-button");
-    private final By errorMessage = By.cssSelector("[data-test='error']");
-
     public void login(String username, String password){
-        type(usernameField, username);
-        type(passwordField, password);
-        click(loginButton);
+        type(LoginLocators.USER_NAME_FIELD, username);
+        type(LoginLocators.PASSWORD_FIELD, password);
+        click(LoginLocators.LOGIN_BTN);
     }
 
     public boolean loadedPage(){
-        return isDisplayed(loginButton);
+        return isDisplayed(LoginLocators.LOGIN_BTN);
     }
 
     public String getErrorMessage(){
-        return getText(errorMessage);
+        return getText(LoginLocators.ERROR_MESSAGE);
     }
 
 }

@@ -22,7 +22,7 @@ public class HeaderComponent extends BasePage {
         click(cartIcon);
     }
 
-    public int getCartCount(){
+    public int getCartBadgeCount(){
         if(!isDisplayed(cartBadge)){
             return 0;
         }

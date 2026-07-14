@@ -1,6 +1,7 @@
 package pages;
 
 import base.BasePage;
+import locators.InventoryLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,34 +30,22 @@ public class InventoryPage extends BasePage {
         return footer;
     }
 
-    private final By pageTitle = By.className("title");
-    private final By sortDropdown = By.className("product_sort_container");
-    private final By inventoryItemNames = By.className("inventory_item_name");
-    private final By inventoryPrices = By.className("inventory_item_price");
-
-
     public boolean loadedPage(){
-        return "Products".equals(getText(pageTitle));
+        return "Products".equals(getText(InventoryLocators.PAGE_TITLE));
     }
 
     public InventoryPage addProductToCart(String productName){
-        By addBtn = By.xpath(
-                "//div[contains(@class,'inventory_item')][.//div[text()='" + productName + "']]//button"
-        );
-        click(addBtn);
+        click(InventoryLocators.addBtn(productName));
         return this;
     }
 
     public InventoryPage removeProductFromCart(String productName){
-        By removeBtn = By.xpath("//div[text()='" + productName +
-                "']/ancestor::div[@class='inventory_item']//button"
-        );
-        click(removeBtn);
+        click(InventoryLocators.removeBtn(productName));
         return this;
     }
 
     private void selectSort(String value){
-        Select select = new Select(driver.findElement(sortDropdown));
+        Select select = new Select(driver.findElement(InventoryLocators.SORT_DROPDOWN));
         select.selectByValue(value);
     }
 
@@ -81,14 +70,14 @@ public class InventoryPage extends BasePage {
     }
 
     public List<String> getProductNames(){
-        return driver.findElements(inventoryItemNames)
+        return driver.findElements(InventoryLocators.INVENTORY_ITEM_NAMES)
                 .stream()
                 .map(WebElement::getText)
                 .toList();
     }
 
     public List<Double> getProductPrices(){
-        return driver.findElements(inventoryPrices)
+        return driver.findElements(InventoryLocators.INVENTORY_PRICES)
                 .stream()
                 .map(e -> e.getText().replace("$", ""))
                 .map(Double::parseDouble)
@@ -101,7 +90,7 @@ public class InventoryPage extends BasePage {
     }
 
     public ProductDetailPage openProduct(String productName){
-        click(By.xpath(("//div[text()='" + productName + "']")));
+        click(InventoryLocators.product(productName));
         return new ProductDetailPage(driver, timeoutSeconds);
     }
 }

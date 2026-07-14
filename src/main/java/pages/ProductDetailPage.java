@@ -1,7 +1,7 @@
 package pages;
 
 import base.BasePage;
-import org.openqa.selenium.By;
+import locators.ProductDetailLocators;
 import org.openqa.selenium.WebDriver;
 import pages.components.FooterComponent;
 import pages.components.HeaderComponent;
@@ -25,47 +25,40 @@ public class ProductDetailPage extends BasePage {
         return footer;
     }
 
-    private final By productName = By.className("inventory_details_name");
-    private final By description = By.className("inventory_details_desc");
-    private final By price = By.className("inventory_details_price");
-    private final By backBtn = By.id("back-to-products");
-    private final By addToCartBtn = By.cssSelector("button[id^='add-to-cart']"); //^= means start from '~'
-    private final By removeBtn = By.cssSelector("button[id^='remove']");
-
     public boolean loadedPage(){
-        return isDisplayed(productName);
+        return isDisplayed(ProductDetailLocators.PRODUCT_NAME);
     }
 
     public String getProductName(){
-        return getText(productName);
+        return getText(ProductDetailLocators.PRODUCT_NAME);
     }
 
     public String getDescription(){
-        return getText(description);
+        return getText(ProductDetailLocators.DESCRIPTION);
     }
 
     public double getPrice(){
-        return Double.parseDouble(getText(price).replace("$", ""));
+        return Double.parseDouble(getText(ProductDetailLocators.PRICE).replace("$", ""));
     }
 
     public ProductDetailPage addToCart(){
-        click(addToCartBtn);
+        click(ProductDetailLocators.ADD_TO_CART_BTN);
         return this;
     }
 
     public boolean addBtnDisplayed(){
-        return isDisplayed(addToCartBtn);
+        return isDisplayed(ProductDetailLocators.ADD_TO_CART_BTN);
     }
 
-    public boolean removeBtnDisplayed(){ return isDisplayed(removeBtn); }
+    public boolean removeBtnDisplayed(){ return isDisplayed(ProductDetailLocators.REMOVE_BTN); }
 
     public ProductDetailPage removeFromCart(){
-        click(removeBtn);
+        click(ProductDetailLocators.REMOVE_BTN);
         return this;
     }
 
     public int getCartCount(){
-        return header.getCartCount();
+        return header.getCartBadgeCount();
     }
 
     public boolean hasCartBadge(){
@@ -73,7 +66,7 @@ public class ProductDetailPage extends BasePage {
     }
 
     public InventoryPage backToProducts(){
-        click(backBtn);
+        click(ProductDetailLocators.BACK_BTN);
         return new InventoryPage(driver, timeoutSeconds);
     }
 }

@@ -28,7 +28,8 @@ public class InventoryTest extends Base_Test {
                 .addProductToCart(product.productName())
                 .openCart();
 
-        CartAssertions.assertCartCount(cartPage, 1);
+        //Assert
+        CartAssertions.assertCartBadgeCount(cartPage, 1);
         CartAssertions.assertHasProduct(cartPage, product.productName());
     }
 
@@ -43,6 +44,7 @@ public class InventoryTest extends Base_Test {
 
         InventoryAssertions.assertCartBadgeHidden(inventoryPage);
 
+        //Assert
         CartPage cartPage = inventoryPage.openCart();
         CartAssertions.assertItemCount(cartPage,0);
     }
@@ -54,6 +56,7 @@ public class InventoryTest extends Base_Test {
     void openProduct(ProductData product) {
         ProductDetailPage productPage = loginAndOpenProductPage(product.productName());
 
+        //Assert
         assertTrue(productPage.loadedPage());
     }
 
@@ -65,6 +68,7 @@ public class InventoryTest extends Base_Test {
         InventoryPage inventoryPage = loginAsStandardUser()
                 .sortByNameAZ();
 
+        //Assert
         InventoryAssertions.assertSortedByAZ(inventoryPage);
     }
 
@@ -76,6 +80,7 @@ public class InventoryTest extends Base_Test {
         InventoryPage inventoryPage = loginAsStandardUser()
                 .sortByNameZA();
 
+        //Assert
         InventoryAssertions.assertSortedByZA(inventoryPage);
     }
 
@@ -87,6 +92,7 @@ public class InventoryTest extends Base_Test {
         InventoryPage inventoryPage = loginAsStandardUser()
                 .sortByPriceLowToHigh();
 
+        //Assert
         InventoryAssertions.assertSortedByPriceAscending(inventoryPage);
     }
 
@@ -98,6 +104,7 @@ public class InventoryTest extends Base_Test {
         InventoryPage inventoryPage = loginAsStandardUser()
                 .sortByPriceHighToLow();
 
+        //Assert
         InventoryAssertions.assertSortedByPriceDescending(inventoryPage);
     }
 
@@ -111,6 +118,7 @@ public class InventoryTest extends Base_Test {
                 .addProductToCart("Sauce Labs Bike Light")
                 .addProductToCart("Sauce Labs Bolt T-Shirt");
 
+        //Assert
         InventoryAssertions.assertCartBadgeVisible(inventoryPage);
         InventoryAssertions.assertCartCount(inventoryPage,3);
 

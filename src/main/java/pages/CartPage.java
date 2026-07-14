@@ -1,30 +1,23 @@
 package pages;
 
 import base.BasePage;
-import models.CartItem;
-import org.openqa.selenium.By;
+import locators.CartLocators;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import pages.components.CartItemsComponent;
 import pages.components.FooterComponent;
 import pages.components.HeaderComponent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CartPage extends BasePage {
 
     private final HeaderComponent header;
     private final FooterComponent footer;
-
-    private final By pageTitle = By.className("title");
-    private final By checkoutBtn = By.id("checkout");
-    private final By continueShoppingBtn = By.id("continue-shopping");
-    private final By cartItem = By.className("cart_item");
+    private final CartItemsComponent cartItems;
 
     public CartPage (WebDriver driver, int timeoutSeconds){
         super(driver, timeoutSeconds);
         this.footer = new FooterComponent(driver, timeoutSeconds);
         this.header = new HeaderComponent(driver, timeoutSeconds);
+        this.cartItems = new CartItemsComponent(driver, timeoutSeconds);
     }
 
     public HeaderComponent header(){
@@ -35,57 +28,31 @@ public class CartPage extends BasePage {
         return footer;
     }
 
+
     public boolean loadedPage(){
-        return getText(pageTitle).equals("Your Cart");
+        return getText(CartLocators.PAGE_TITLE).equals("Your Cart");
     }
 
-    public boolean hasProduct(String productName){
-        By product = By.xpath("//div[text()='" + productName + "']");
-        //return visible(product).isDisplayed();
-        return !finds(product).isEmpty();
-    }
-
-    public List<CartItem> getCartItems(){
-        List<WebElement> elements = finds(cartItem);
-        List<CartItem> items = new ArrayList<>();
-
-        for (WebElement element : elements) {
-            String name = element
-                    .findElement(By.className("inventory_item_name"))
-                    .getText();
-
-            String price = element
-                    .findElement(By.className("inventory_item_price"))
-                    .getText();
-
-            int quantity = Integer.parseInt(element
-                    .findElement(By.className("cart_quantity"))
-                    .getText());
-
-            items.add(new CartItem(name, price, quantity));
-        }
-        return items;
+    public CartItemsComponent cartItems(){
+        return cartItems;
     }
 
     public CheckoutPage checkout(){
-        click(checkoutBtn);
+        click(CartLocators.CHECKOUT_BTN);
         return new CheckoutPage(driver, timeoutSeconds);
     }
 
     public InventoryPage continueShopping(){
-        click(continueShoppingBtn);
+        click(CartLocators.CONTINUE_SHOPPING_BTN);
         return new InventoryPage(driver, timeoutSeconds);
     }
 
     public CartPage removeProduct(String productName){
-        By removeBtn = By.xpath(
-                "//div[@class='cart_item'][.//div[text()='" + productName + "']]//button"
-        );
-        click(removeBtn);
+        click(CartLocators.REMOVE_BTN(productName));
         return this;
     }
 
-    public int getCartCount(){
-        return header().getCartCount();
+    public int getCartBadgeCount(){
+        return header().getCartBadgeCount();
     }
 }

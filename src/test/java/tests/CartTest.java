@@ -3,19 +3,12 @@ package tests;
 import assertions.CartAssertions;
 import assertions.CheckoutAssertions;
 import io.qameta.allure.*;
-import models.CartItem;
-import models.ProductData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 import pages.CartPage;
 import pages.CheckoutPage;
 import pages.InventoryPage;
 import assertions.InventoryAssertions;
-
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @Epic("Swag Labs")
 @Feature("Cart")
@@ -25,7 +18,7 @@ public class CartTest extends Base_Test{
     @DisplayName("Remove button")
     @Severity(SeverityLevel.NORMAL)
     @Test
-    void removeItemfromCart(){
+    void removeItemFromCart(){
         //Arrange
         CartPage cartPage = loginAndOpenCartPage("Sauce Labs Backpack",
                 "Sauce Labs Bike Light")
@@ -35,7 +28,7 @@ public class CartTest extends Base_Test{
         CartAssertions.assertItemCount(cartPage, 1);
         CartAssertions.assertNotHaveProduct(cartPage, "Sauce Labs Backpack");
         //check cart badge function
-        //CartAssertions.assertCartCount(cartPage,2);
+        //CartAssertions.assertCartBadgeCount(cartPage,2);
     }
 
     @Story("Checkout items")
