@@ -17,6 +17,7 @@ public class HeaderComponent extends BasePage {
     private final By cartBadge = By.className("shopping_cart_badge");
     private final By menuBtn = By.id("react-burger-menu-btn");
     private final By closeBtn = By.id("react-burger-cross-btn");
+    private final By menuPanel = By.className("bm-menu-wrap");
 
     public void openCart(){
         click(cartIcon);
@@ -43,5 +44,9 @@ public class HeaderComponent extends BasePage {
 
     public MenuComponent menu(){
         return menu;
+    }
+
+    public boolean isMenuOpened(){
+        return "false".equals(visible(menuPanel).getAttribute("aria-hidden"));
     }
 }

@@ -23,7 +23,7 @@ public class InventoryTest extends Base_Test {
     @Severity(SeverityLevel.CRITICAL)
     @ParameterizedTest
     @MethodSource("utils.CsvDataProvider#products")
-    void addItemtoCart(ProductData product) {
+    void addItemToCart(ProductData product) {
         CartPage cartPage = loginAsStandardUser()
                 .addProductToCart(product.productName())
                 .openCart();
@@ -121,6 +121,5 @@ public class InventoryTest extends Base_Test {
         //Assert
         InventoryAssertions.assertCartBadgeVisible(inventoryPage);
         InventoryAssertions.assertCartCount(inventoryPage,3);
-
     }
 }

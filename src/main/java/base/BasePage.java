@@ -4,11 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import org.openqa.selenium.bidi.network.Header;
-import pages.components.FooterComponent;
-import pages.components.HeaderComponent;
 import utils.WaitUtils;
-
 import java.util.List;
 
 public abstract class BasePage {
@@ -21,12 +17,12 @@ public abstract class BasePage {
 
     }
 
-    protected List<WebElement> finds(By locator){
+    protected List<WebElement> elements(By locator){
         return driver.findElements(locator);
     }
 
     protected boolean isDisplayed(By locator) {
-        List<WebElement> elements = finds(locator);
+        List<WebElement> elements = elements(locator);
         return !elements.isEmpty() && elements.get(0).isDisplayed();
     }
 
@@ -42,10 +38,10 @@ public abstract class BasePage {
         clickable(locator).click();
     }
 
-    protected void type(By locator, String text){
+    protected void type(By locator, String value){
         WebElement element = visible(locator);
         element.clear();
-        element.sendKeys(text);
+        element.sendKeys(value);
     }
 
     protected String getText(By locator){

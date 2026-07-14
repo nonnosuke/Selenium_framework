@@ -18,7 +18,7 @@ public class CartItemsComponent extends BasePage {
     }
 
     public List<CartItem> getItems(){
-        List<WebElement> elements = finds(CartLocators.CART_ITEM);
+        List<WebElement> elements = elements(CartLocators.CART_ITEM);
         List<CartItem> items = new ArrayList<>();
 
         for (WebElement element : elements) {

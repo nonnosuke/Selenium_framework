@@ -2,7 +2,6 @@ package pages;
 
 import base.BasePage;
 import locators.CompleteOrderLocators;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class CompleteOrderPage extends BasePage {
@@ -15,7 +14,7 @@ public class CompleteOrderPage extends BasePage {
         return "Checkout: Complete!".equals(getText(CompleteOrderLocators.PAGE_TITLE));
     }
 
-    public String getText(){
+    public String getCompleteText(){
         return getText(CompleteOrderLocators.COMPLETE_TEXT);
     }
 

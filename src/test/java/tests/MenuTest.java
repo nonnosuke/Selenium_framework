@@ -5,7 +5,6 @@ import assertions.LoginAssertions;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import pages.InventoryPage;
 import pages.LoginPage;
 import pages.ProductDetailPage;
@@ -16,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Epic("Swag Labs")
 @Feature("Menu")
 public class MenuTest extends Base_Test{
-    @Story("Logout")
+    @Story("Log out")
     @DisplayName("Logout from menu bar")
     @Severity(SeverityLevel.CRITICAL)
     @Test
@@ -35,7 +34,7 @@ public class MenuTest extends Base_Test{
     @DisplayName("Return to Inventory page")
     @Severity(SeverityLevel.CRITICAL)
     @Test
-    void allItem(){
+    void allItems(){
         ProductDetailPage detailPage = loginAndOpenProductPage("Sauce Labs Backpack");
         detailPage.header().openMenu();
         InventoryPage returnedInventoryPage = detailPage.header().menu().allItems();
@@ -43,7 +42,7 @@ public class MenuTest extends Base_Test{
         InventoryAssertions.assertLoaded(returnedInventoryPage);
     }
 
-    @Story("Reset app state")
+    @Story("Reset Application state")
     @DisplayName("Reset cart and app State")
     @Severity(SeverityLevel.CRITICAL)
     @Test
@@ -70,5 +69,14 @@ public class MenuTest extends Base_Test{
         inventoryPage.header().menu().about();
 
         assertTrue(DriverFactory.getDriver().getCurrentUrl().startsWith("https://saucelabs.com/"));
+    }
+
+    @Test
+    void openAndCloseMenu(){
+        InventoryPage inventoryPage = loginAsStandardUser();
+        inventoryPage.header().openMenu();
+        inventoryPage.header().closeMenu();
+
+        assertFalse(inventoryPage.header().isMenuOpened());
     }
 }

@@ -1,10 +1,10 @@
 package tests;
 
+import assertions.CompleteOrderAssertions;
 import assertions.InventoryAssertions;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import pages.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,12 +22,12 @@ public class CompleteOrderTest extends Base_Test {
         //Arrange (login)
         CartPage cartPage = loginAndOpenCartPage("Sauce Labs Backpack");
 
-        CheckoutPage checkoutpage = cartPage.checkout();
-        CheckoutOverviewPage overviewpage = checkoutpage.enterInfo("Shohei", "Otani", "V6B 1V5");
-        CompleteOrderPage completeorderpage = overviewpage.finish();
+        CheckoutPage checkoutPage = cartPage.checkout();
+        CheckoutOverviewPage overviewPage = checkoutPage.enterInfo("Shohei", "Otani", "V6B 1V5");
+        CompleteOrderPage completeorderPage = overviewPage.finish();
 
         //Assert
-        assertEquals("Thank you for your order!", completeorderpage.getText());
+        CompleteOrderAssertions.assertCompleteMessage(completeorderPage,"Thank you for your order!");
     }
 
     @Story("Back to home button")
@@ -44,7 +44,7 @@ public class CompleteOrderTest extends Base_Test {
         InventoryPage inventoryPageAfterBackHome = completeorderpage.backHome();
 
         //Assert
-        InventoryAssertions.assertLoaded(inventoryPageAfterBackHome);
+        CompleteOrderAssertions.assertInventoryLoaded(inventoryPageAfterBackHome);
     }
 
 }
