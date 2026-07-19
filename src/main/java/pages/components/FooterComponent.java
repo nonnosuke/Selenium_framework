@@ -2,6 +2,7 @@ package pages.components;
 
 import base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 
 public class FooterComponent extends BasePage {
@@ -12,6 +13,7 @@ public class FooterComponent extends BasePage {
     private final By xBtn = By.cssSelector("[data-test='social-twitter']");
     private final By facebookBtn = By.cssSelector("[data-test='social-facebook']");
     private final By linkedInBtn = By.cssSelector("[data-test='social-linkedin']");
+    private final By social = By.className("social");
 
     public void openX(){
         click(xBtn);

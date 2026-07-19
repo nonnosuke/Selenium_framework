@@ -2,24 +2,23 @@ package pages;
 
 import base.BasePage;
 import locators.InventoryLocators;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import pages.components.FooterComponent;
 import pages.components.HeaderComponent;
-
-import java.util.List;
+import pages.components.InventoryItemsComponent;
 
 public class InventoryPage extends BasePage {
 
     private final HeaderComponent header;
     private final FooterComponent footer;
+    private final InventoryItemsComponent items;
 
     public InventoryPage(WebDriver driver, int timeoutSeconds) {
         super(driver, timeoutSeconds);
         this.footer = new FooterComponent(driver, timeoutSeconds);
         this.header = new HeaderComponent(driver, timeoutSeconds);
+        this.items = new InventoryItemsComponent(driver, timeoutSeconds);
     }
 
     public HeaderComponent header(){
@@ -29,6 +28,8 @@ public class InventoryPage extends BasePage {
     public FooterComponent footer(){
         return footer;
     }
+
+    public InventoryItemsComponent items(){return items;}
 
     public boolean loadedPage(){
         return "Products".equals(getText(InventoryLocators.PAGE_TITLE));
@@ -69,21 +70,6 @@ public class InventoryPage extends BasePage {
         return this;
     }
 
-    public List<String> getProductNames(){
-        return driver.findElements(InventoryLocators.INVENTORY_ITEM_NAMES)
-                .stream()
-                .map(WebElement::getText)
-                .toList();
-    }
-
-    public List<Double> getProductPrices(){
-        return driver.findElements(InventoryLocators.INVENTORY_PRICES)
-                .stream()
-                .map(e -> e.getText().replace("$", ""))
-                .map(Double::parseDouble)
-                .toList();
-    }
-
     public CartPage openCart(){
         header.openCart();
         return new CartPage(driver, timeoutSeconds);
@@ -93,4 +79,9 @@ public class InventoryPage extends BasePage {
         click(InventoryLocators.product(productName));
         return new ProductDetailPage(driver, timeoutSeconds);
     }
+
+    public double getInventoryProductPrice(String productName){
+        return Double.parseDouble(getText(InventoryLocators.productPrice(productName)).replace("$", ""));
+    }
+
 }

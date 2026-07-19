@@ -23,7 +23,7 @@ public class LoginTest extends Base_Test {
     @MethodSource("utils.CsvDataProvider#loginUsers")
     void loginTest(LoginData user) {
 
-        loginAs(user);
+        login(user);
 
         if (user.expected().equals("SUCCESS")) {
             InventoryAssertions.assertLoaded(

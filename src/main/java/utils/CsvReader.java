@@ -79,11 +79,11 @@ public final class CsvReader {
         List<ProductData> productData = new ArrayList<>();
         for(String[] row : csvRows){
 
-            if (row.length != 3){
+            if (row.length != 4){
                 throw new IllegalArgumentException("Invalid CSV row: " + Arrays.toString(row));
             }
 
-            productData.add(new ProductData(row[0], row[1], Double.parseDouble(row[2])));
+            productData.add(new ProductData(row[0], row[1], Double.parseDouble(row[2]), row[3]));
         }
         return productData;
     }

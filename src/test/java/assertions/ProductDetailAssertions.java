@@ -1,5 +1,7 @@
 package assertions;
 
+import models.ProductData;
+import pages.InventoryPage;
 import pages.ProductDetailPage;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,5 +43,15 @@ public final class ProductDetailAssertions extends BaseAssertions{
 
     public static void assertCartCount(ProductDetailPage page, int expected){
         assertCount(expected, page.getCartCount());
+    }
+
+    public static void assertProductImage(ProductDetailPage page, ProductData product){
+        String actual = page.items().getProductDetailPageImage();
+
+        System.out.println("Actual : " + actual);
+        System.out.println("Expected : " + product.image());
+
+        assertTrue(actual.contains(product.image()));
+        //assertFalse(actual.contains(product.image()));
     }
 }

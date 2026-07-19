@@ -4,12 +4,15 @@ import models.LoginData;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import pages.*;
 import utils.AllureEnvironmentWriter;
 import utils.ConfigReader;
 import utils.DriverFactory;
 import utils.ScreenshotExtension;
 
+import java.io.File;
 import java.util.Set;
 
 @ExtendWith(ScreenshotExtension.class)
@@ -40,18 +43,35 @@ public abstract class Base_Test {
     }
 
     //From ConfigReader
-    protected void login(String username, String password){
-        loginPage().login(username, password);
+    protected InventoryPage login(String username, String password){
+//        loginPage().login(username, password);
+        return loginPage().login(username, password);
+    }
+
+    protected LoginPage loginExpectFailure(String username, String password){
+//        loginPage().login(username, password);
+        return loginPage().loginExpectFailure(username, password);
     }
 
     //From CSV
-    protected void loginAs(LoginData user) {
+    protected InventoryPage login(LoginData user) {
         Allure.step("Login as " + user.username());
-        loginPage().login(
-                user.username(),
-                user.password()
-        );
+//        loginPage().login(
+//                user.username(),
+//                user.password()
+//        );
+        return loginPage().login(user);
     }
+
+    protected LoginPage loginExpectFailure(LoginData user) {
+        Allure.step("Login as " + user.username());
+//        loginPage().login(
+//                user.username(),
+//                user.password()
+//        );
+        return loginPage().loginExpectFailure(user);
+    }
+
 
     protected InventoryPage loginAsStandardUser(){
         login(

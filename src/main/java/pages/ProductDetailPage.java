@@ -5,16 +5,19 @@ import locators.ProductDetailLocators;
 import org.openqa.selenium.WebDriver;
 import pages.components.FooterComponent;
 import pages.components.HeaderComponent;
+import pages.components.InventoryItemsComponent;
 
 public class ProductDetailPage extends BasePage {
 
     private final HeaderComponent header;
     private final FooterComponent footer;
+    private final InventoryItemsComponent items;
 
     public ProductDetailPage(WebDriver driver, int timeoutSeconds) {
         super(driver, timeoutSeconds);
         this.footer = new FooterComponent(driver, timeoutSeconds);
         this.header = new HeaderComponent(driver, timeoutSeconds);
+        this.items = new InventoryItemsComponent(driver, timeoutSeconds);
     }
 
     public HeaderComponent header(){
@@ -23,6 +26,10 @@ public class ProductDetailPage extends BasePage {
 
     public FooterComponent footer(){
         return footer;
+    }
+
+    public InventoryItemsComponent items(){
+        return items;
     }
 
     public boolean loadedPage(){
@@ -35,6 +42,10 @@ public class ProductDetailPage extends BasePage {
 
     public String getDescription(){
         return getText(ProductDetailLocators.DESCRIPTION);
+    }
+
+    public boolean hasDescription(){
+        return isDisplayed(ProductDetailLocators.DESCRIPTION);
     }
 
     public double getPrice(){

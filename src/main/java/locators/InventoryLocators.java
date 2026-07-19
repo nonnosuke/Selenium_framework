@@ -28,4 +28,25 @@ public final class InventoryLocators {
     public static By product(String productName){
         return By.xpath( "//div[text()='" + productName + "']");
     }
+
+    public static By productImage(String productName){
+        return By.xpath( "//div[text()='" + productName + "']" +
+                "/ancestor::div[@class='inventory_item']" +
+                "//img");
+    }
+
+    public static By productCard(String productName){
+        return By.xpath(
+                "//div[contains(@class,'inventory_item')]" +
+                        "[.//div[text()='" + productName + "']]"
+        );
+    }
+
+    public static By productPrice(String productName){
+        return By.xpath(
+                "//div[text()='" + productName + "']" +
+                        "/ancestor::div[contains(@class,'inventory_item')]" +
+                        "//div[@class='inventory_item_price']"
+        );
+    }
 }

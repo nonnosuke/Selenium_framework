@@ -1,7 +1,6 @@
 package locators;
 
 import org.openqa.selenium.By;
-import pages.ProductDetailPage;
 
 public final class ProductDetailLocators {
     private ProductDetailLocators(){}
@@ -12,4 +11,6 @@ public final class ProductDetailLocators {
     public static final By BACK_BTN = By.id("back-to-products");
     public static final By ADD_TO_CART_BTN = By.cssSelector("button[id^='add-to-cart']");
     public static final By REMOVE_BTN = By.cssSelector("button[id^='remove']");
+
+    public static final By PRODUCT_IMAGE = By.className("inventory_details_img");
 }

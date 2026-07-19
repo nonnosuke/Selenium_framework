@@ -14,7 +14,6 @@ public abstract class BasePage {
     public BasePage(WebDriver driver, int timeoutSeconds){
         this.driver = driver;
         this.timeoutSeconds = timeoutSeconds;
-
     }
 
     protected List<WebElement> elements(By locator){

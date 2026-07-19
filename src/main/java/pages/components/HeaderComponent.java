@@ -1,8 +1,7 @@
 package pages.components;
 
 import base.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 
 public class HeaderComponent extends BasePage {
 
@@ -17,7 +16,7 @@ public class HeaderComponent extends BasePage {
     private final By cartBadge = By.className("shopping_cart_badge");
     private final By menuBtn = By.id("react-burger-menu-btn");
     private final By closeBtn = By.id("react-burger-cross-btn");
-    private final By menuPanel = By.className("bm-menu-wrap");
+    private final By menuPanel = By.cssSelector(".bm-icon");
 
     public void openCart(){
         click(cartIcon);
@@ -30,8 +29,24 @@ public class HeaderComponent extends BasePage {
         return Integer.parseInt(getText(cartBadge));
     }
 
+    public Point getCartIconLocation(){
+        return visible(cartIcon).getLocation();
+    }
+
+    public Dimension getCartIconSize(){
+        return visible(cartIcon).getSize();
+    }
+
     public boolean hasCartBadge(){
         return isDisplayed(cartBadge);
+    }
+
+    public boolean hasMenuBadge(){
+        return isDisplayed(menuBtn);
+    }
+
+    public boolean hasVisualFailureClass() {
+        return visible(menuPanel).getAttribute("class").contains("visual_failure");
     }
 
     public void openMenu(){
