@@ -1,14 +1,11 @@
 package tests;
 
+import assertions.FooterAssertions;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import pages.InventoryPage;
-import utils.ConfigReader;
-import utils.DriverFactory;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Epic("Swag Labs")
 @Feature("Footer")
@@ -25,7 +22,7 @@ public class FooterTest extends Base_Test {
 
         switchToNewTab(originalWindow);
 
-        assertTrue(DriverFactory.getDriver().getCurrentUrl().contains("x"));
+        FooterAssertions.assertOpenedUrlContains("x");
 
         closeCurrentTabAndReturn(originalWindow);
     }
@@ -42,7 +39,7 @@ public class FooterTest extends Base_Test {
 
         switchToNewTab(originalWindow);
 
-        assertTrue(DriverFactory.getDriver().getCurrentUrl().contains("facebook"));
+        FooterAssertions.assertOpenedUrlContains("facebook");
         closeCurrentTabAndReturn(originalWindow);
     }
 
@@ -58,7 +55,7 @@ public class FooterTest extends Base_Test {
 
         switchToNewTab(originalWindow);
 
-        assertTrue(DriverFactory.getDriver().getCurrentUrl().contains("linkedin"));
+        FooterAssertions.assertOpenedUrlContains("linkedin");
         closeCurrentTabAndReturn(originalWindow);
     }
 }
