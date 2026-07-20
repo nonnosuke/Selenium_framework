@@ -25,6 +25,14 @@ public final class InventoryLocators {
                 "']/ancestor::div[@class='inventory_item']//button");
     }
 
+    public static By button(String productName){
+        return By.xpath(
+                "//div[contains(@class,'inventory_item')]" +
+                        "[.//div[text()='" + productName + "']]" +
+                        "//button"
+        );
+    }
+
     public static By product(String productName){
         return By.xpath( "//div[text()='" + productName + "']");
     }

@@ -95,4 +95,8 @@ public final class InventoryAssertions extends BaseAssertions {
     public static void assertIncorrectPrice(InventoryPage page, ProductData product){
         assertNotEquals(product.price(), page.getInventoryProductPrice(product.productName()));
     }
+
+    public static void assertRemoveBtnStillDisplayed(InventoryPage page, ProductData product){
+        assertEquals("Remove", page.items().getBtnText(product.productName()));
+    }
 }

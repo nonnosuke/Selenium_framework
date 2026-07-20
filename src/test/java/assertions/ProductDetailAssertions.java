@@ -54,4 +54,20 @@ public final class ProductDetailAssertions extends BaseAssertions{
         assertTrue(actual.contains(product.image()));
         //assertFalse(actual.contains(product.image()));
     }
+
+    public static void assertDescriptionIsNotDisplayed(ProductDetailPage page){
+        assertFalse(page.hasDescription());
+    }
+
+    public static void assertIncorrectProductName(ProductDetailPage page, ProductData product){
+        assertNotEquals(product.productName(), page.getProductName());
+    }
+
+    public static void assertIncorrectDescription(ProductDetailPage page, ProductData product){
+        assertNotEquals(product.description(), page.getDescription());
+    }
+
+    public static void assertIncorrectPrice(ProductDetailPage page, String expectedPrice){
+        assertNotEquals(expectedPrice, page.getPriceText());
+    }
 }

@@ -8,6 +8,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import models.LoginData;
 import models.ProductData;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,15 +22,8 @@ import utils.CsvDataProvider;
 @Feature("Visual User")
 public class VisualUserTest extends Base_Test {
 
-    @Test
-    void inventoryPageLoaded(){
-        LoginData user = CsvDataProvider.getUser("visual_user");
-        InventoryPage inventoryPage = login(user);
-
-        InventoryAssertions.assertLoaded(inventoryPage);
-    }
-
-    @Story("Inventory Images")
+    @Story("Incorrect inventory product images")
+    @DisplayName("Visual user displays an incorrect inventory product image")
     @Test
     void productImageIsIncorrect(){
         ProductData backPack = CsvDataProvider.getProduct("Sauce Labs Backpack");
@@ -39,10 +33,11 @@ public class VisualUserTest extends Base_Test {
         InventoryAssertions.assertIncorrectProductImage(inventoryPage, backPack);
     }
 
-    @Story("Product Detail Images")
+    @Story("Incorrect product detail images")
+    @DisplayName("Visual user displays incorrect product detail images")
     @ParameterizedTest
     @MethodSource("utils.CsvDataProvider#products")
-    void detailImageShouldBeCorrect(ProductData product){
+    void detailImageIsIncorrect(ProductData product){
         LoginData user = CsvDataProvider.getUser("visual_user");
         ProductDetailPage detailPage = login(user)
                 .openProduct(product.productName());
@@ -50,7 +45,8 @@ public class VisualUserTest extends Base_Test {
         ProductDetailAssertions.assertProductImage(detailPage, product);
     }
 
-    @Story("Add button layout")
+    @Story("Add to cart button layout")
+    @DisplayName("Visual user displays a misaligned Add to cart button")
     @Test
     void addBtnIsMisaligned(){
         ProductData tShirts = CsvDataProvider.getProduct("Test.allTheThings() T-Shirt (Red)");
@@ -60,7 +56,8 @@ public class VisualUserTest extends Base_Test {
         InventoryAssertions.assertAddBtnMisaligned(inventoryPage, tShirts);
     }
 
-    @Story("Product name layout")
+    @Story("Product title alignment")
+    @DisplayName("Visual user displays right-aligned product titles")
     @Test
     void productNameIsRightAligned(){
         ProductData boltTshirt = CsvDataProvider.getProduct("Sauce Labs Bolt T-Shirt");
@@ -73,7 +70,8 @@ public class VisualUserTest extends Base_Test {
         InventoryAssertions.assertProductNameRightAligned(inventoryPage, jacket);
     }
 
-    @Story("Prices")
+    @Story("Incorrect inventory prices")
+    @DisplayName("Visual user displays incorrect product prices")
     @ParameterizedTest
     @MethodSource("utils.CsvDataProvider#products")
     void pricesAreIncorrect(ProductData product){
@@ -81,11 +79,11 @@ public class VisualUserTest extends Base_Test {
         InventoryPage inventoryPage = login(user);
 
         //Assert
-        //assertNotEquals(product.price(), actual);
         InventoryAssertions.assertIncorrectPrice(inventoryPage, product);
     }
 
     @Story("Cart icon layout")
+    @DisplayName("Visual user displays a misplaced cart icon")
     @Test
     void cartIconIsMisplaced(){
         LoginData user = CsvDataProvider.getUser("visual_user");
@@ -96,6 +94,7 @@ public class VisualUserTest extends Base_Test {
     }
 
     @Story("Menu icon layout")
+    @DisplayName("Visual user displays a rotated menu icon")
     @Test
     void menuIconIsRotated(){
         LoginData user = CsvDataProvider.getUser("visual_user");

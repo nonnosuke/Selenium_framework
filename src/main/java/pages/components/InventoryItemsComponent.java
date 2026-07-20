@@ -52,4 +52,9 @@ public class InventoryItemsComponent extends BasePage {
         //return visible(InventoryLocators.product(productName)).getAttribute("class").contains("align_right");
         return visible(InventoryLocators.product(productName)).getCssValue("text-align").equals("right");
     }
+
+    public String getBtnText(String productName) {
+        By btn = InventoryLocators.button(productName);
+        return getText(btn);
+    }
 }

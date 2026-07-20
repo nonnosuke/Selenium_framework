@@ -3,7 +3,9 @@ package tests.users;
 import assertions.InventoryAssertions;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import models.LoginData;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.InventoryPage;
 import tests.Base_Test;
@@ -15,8 +17,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @Feature("Performance User")
 public class PerformanceUserTest extends Base_Test {
 
+    @Story("Glitch user takes time to log in")
+    @DisplayName("Log in takes more than 5 seconds")
     @Test
-    void loginPerformanceUser(){
+    void loginIsDelayed(){
 
         long start = System.currentTimeMillis();
 
@@ -26,7 +30,6 @@ public class PerformanceUserTest extends Base_Test {
         long elapsed = System.currentTimeMillis() - start;
 
         InventoryAssertions.assertLoaded(inventoryPage);
-        System.out.println(elapsed + "ms");
-        assertFalse(elapsed < 5000, "Login took too long: " + elapsed + "ms");
+        assertTrue(elapsed >= 5000, "Login took too long: " + elapsed + "ms");
     }
 }

@@ -52,6 +52,10 @@ public class ProductDetailPage extends BasePage {
         return Double.parseDouble(getText(ProductDetailLocators.PRICE).replace("$", ""));
     }
 
+    public String getPriceText(){
+        return getText(ProductDetailLocators.PRICE);
+    }
+
     public ProductDetailPage addToCart(){
         click(ProductDetailLocators.ADD_TO_CART_BTN);
         return this;
