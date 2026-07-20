@@ -3,8 +3,10 @@
 A UI Test Automation Framework for **Swag Labs** built with Java, Selenium WebDriver, JUnit 5, and Page Object Model (POM).
 
 This project demonstrates an end-to-end automation framework including reusable Page Objects, Assertions, Components, Test Data management, and Allure reporting.
+
 The test application is the Sauce Demo website:
 https://www.saucedemo.com/
+
 ---
 
 # Tech Stack
