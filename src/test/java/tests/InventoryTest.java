@@ -2,6 +2,7 @@ package tests;
 
 import assertions.CartAssertions;
 import assertions.InventoryAssertions;
+import assertions.ProductDetailAssertions;
 import io.qameta.allure.*;
 import models.ProductData;
 import org.junit.jupiter.api.DisplayName;
@@ -57,7 +58,7 @@ public class InventoryTest extends Base_Test {
         ProductDetailPage productPage = loginAndOpenProductPage(product.productName());
 
         //Assert
-        assertTrue(productPage.loadedPage());
+        ProductDetailAssertions.assertLoaded(productPage);
     }
 
     @Story("Sort products")

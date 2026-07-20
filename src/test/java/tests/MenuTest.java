@@ -1,5 +1,6 @@
 package tests;
 
+import assertions.HeaderAssertions;
 import assertions.InventoryAssertions;
 import assertions.LoginAssertions;
 import io.qameta.allure.*;
@@ -68,7 +69,7 @@ public class MenuTest extends Base_Test{
         inventoryPage.header().openMenu();
         inventoryPage.header().menu().about();
 
-        assertTrue(DriverFactory.getDriver().getCurrentUrl().startsWith("https://saucelabs.com/"));
+        HeaderAssertions.assertOpenNewPage("https://saucelabs.com/");
     }
 
     @Test
@@ -77,6 +78,6 @@ public class MenuTest extends Base_Test{
         inventoryPage.header().openMenu();
         inventoryPage.header().closeMenu();
 
-        assertFalse(inventoryPage.header().isMenuOpened());
+        HeaderAssertions.assertMenuIsOpened(inventoryPage);
     }
 }
